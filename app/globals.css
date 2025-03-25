@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --white: #fff;
+  --black: #000;
+  --Typocolor: #121212;
+
+  --bg-red: #E51236;
+  --bg-blue: #001A52;
+  --bg-white: #fff;
+
+  --padding: ;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  font-size: 16px;
+}
+
+body {
+  color: var(--black);
+  background: var(--foreground);
+  width: 390px; /* för mobil dev */
+  margin: 0 auto;
+  font: 300 1rem 'inter', sans-serif;
+  line-height: 1.6rem; /* tillfälligt */
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav#top {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1.25rem;
+}
+nav#top ul {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+header {
+  background-color: var(--bg-red);
+  padding: 2.5rem 1.25rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  line-height: 2rem;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+header h1 + p {
+  font-size: 2rem;
+  font-weight: 200;
+  line-height: 2rem;
+  text-transform: uppercase;
+}
+
+main {
+  background: var(--bg-white);
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 0;
+  gap: 2.5rem;
+}
+main section {
+  padding: 0 1.25rem;
+}
+
+footer {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  align-items: start;
+}
+footer ul {
+  list-style: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
