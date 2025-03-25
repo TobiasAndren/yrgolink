@@ -47,6 +47,7 @@ a {
 }
 
 nav#top {
+  background-color: var(--bg-white);
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 1.25rem;

@@ -5,18 +5,18 @@ import { createClient } from '@/utils/supabase/client'
 export default function ProfileForm({ user }) {
   const supabase = createClient()
   const [loading, setLoading] = useState(true)
-  const [fullname, setFullname] = useState(null)
-  const [username, setUsername] = useState(null)
+  const [first_name, setFirstName] = useState(null)
+  const [last_name, setLastName] = useState(null)
+  const [description, setDescription] = useState(null)
   const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
 
   const getProfile = useCallback(async () => {
     try {
       setLoading(true)
 
       const { data, error, status } = await supabase
-        .from('profiles')
-        .select(`full_name, username, website, avatar_url`)
+        .from('students')
+        .select(`first_name, last_name, description, website`)
         .eq('id', user?.id)
         .single()
 
@@ -25,10 +25,10 @@ export default function ProfileForm({ user }) {
       }
 
       if (data) {
-        setFullname(data.full_name)
-        setUsername(data.username)
+        setFirstName(data.first_name)
+        setLastName(data.last_name)
+        setDescription(data.description)
         setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -41,20 +41,20 @@ export default function ProfileForm({ user }) {
     getProfile()
   }, [user, getProfile])
 
-  async function updateProfile({ username, website, avatar_url }) {
+  async function updateProfile({ first_name, last_name, description, website }) {
     try {
       setLoading(true)
 
-      const { error } = await supabase.from('profiles').upsert({
+      const { error } = await supabase.from('students').upsert({
         id: user?.id,
-        full_name: fullname,
-        username,
+        first_name,
+        last_name,
+        description,
         website,
-        avatar_url,
         updated_at: new Date().toISOString(),
       })
       if (error) throw error
-      alert('Profile updated!')
+      alert('Credentials updated!')
     } catch (error) {
       alert('Error updating the data!')
     } finally {
@@ -69,22 +69,31 @@ export default function ProfileForm({ user }) {
         <input id="email" type="text" value={user?.email} disabled />
       </div>
       <div>
-        <label htmlFor="fullName">Full Name</label>
+        <label htmlFor="firstName">First Name</label>
         <input
-          id="fullName"
+          id="firstName"
           type="text"
-          value={fullname || ''}
-          onChange={(e) => setFullname(e.target.value)}
+          value={first_name || ''}
+          onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="lastName">Last Name</label>
         <input
-          id="username"
+          id="lastName"
           type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
+          value={last_name || ''}
+          onChange={(e) => setLastName(e.target.value)}
         />
+      </div>
+      <div>
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          type="text"
+          value={description || ''}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
       </div>
       <div>
         <label htmlFor="website">Website</label>
@@ -99,7 +108,7 @@ export default function ProfileForm({ user }) {
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ fullname, username, website, avatar_url })}
+          onClick={() => updateProfile({ first_name, last_name, description, website })}
           disabled={loading}
         >
           {loading ? 'Loading ...' : 'Update'}
