@@ -14,6 +14,12 @@ export async function signup(formData) {
     options: {
         data: {
           user_type: formData.get('user_type'),
+          name: formData.get('name'),
+          class: formData.get('class'),
+          description: formData.get('description'),
+          employment_mode: formData.get('employment-mode'),
+          website: formData.get('website'),
+          linkedin: formData.get('linkedin')
         },
     },
   }
