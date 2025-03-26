@@ -25,20 +25,20 @@ export async function login(formData) {
   redirect('/profile')
 }
 
-export async function signup(formData) {
-  const supabase = await createClient()
+// export async function signup(formData) {
+//   const supabase = await createClient()
 
-  const data = {
-    email: formData.get('email'),
-    password: formData.get('password'),
-  }
+//   const data = {
+//     email: formData.get('email'),
+//     password: formData.get('password'),
+//   }
 
-  const { error } = await supabase.auth.signUp(data)
+//   const { error } = await supabase.auth.signUp(data)
 
-  if (error) {
-    redirect('/error')
-  }
+//   if (error) {
+//     redirect('/error')
+//   }
 
-  revalidatePath('/', 'layout')
-  redirect('/profile')
-}
+//   revalidatePath('/', 'layout')
+//   redirect('/profile')
+// }

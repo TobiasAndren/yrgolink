@@ -37,7 +37,6 @@ export function TopNav() {
 
   return (
     <nav id="top">
-      <img src="logo-link.svg" />
       <ul>
         <li><Link href="/">Home</Link></li>
         <li><Link href="/profile">Profile</Link></li>

@@ -8,6 +8,7 @@
   --bg-red: #E51236;
   --bg-blue: #001A52;
   --bg-white: #fff;
+  --bg-grey: #E4E9EB;
 
   --padding: ;
 }
@@ -98,6 +99,77 @@ footer {
 }
 footer ul {
   list-style: none;
+}
+
+form {
+  padding: 2.5rem 1.25rem;
+  background: var(--bg-grey);
+}
+input, textarea, select,
+label[for=designer],
+label[for=developer] {
+  border: none;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-white);
+  border-radius: 0.75rem;
+  font: inherit;
+  color: inherit;
+}
+fieldset#dd-wu {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+}
+fieldset#dd-wu label {
+  width: 100%;
+  text-align: center;
+}
+fieldset#dd-wu input[type=radio] {
+  display: none;
+}
+fieldset#dd-wu input[type=radio]:checked + label {
+  background-color: var(--bg-blue);
+  color: white;
+}
+
+input::placeholder {
+  color: #737373;
+}
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+legend {
+  font-size: 1.25rem;
+}
+fieldset > fieldset {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+fieldset > fieldset legend {
+  font-size: 1rem;
+}
+label {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+label[for="cv"] {
+  color: white;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-red);
+  border-radius: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+}
+button {
+  font: inherit;
+  border: none;
+  padding: .75rem 1.25rem;
+  border-radius: 2.5rem;
+  margin-top: 1.25rem;
+  width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
