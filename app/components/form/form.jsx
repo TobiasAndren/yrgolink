@@ -21,7 +21,7 @@ const StyledTitle = styled.h3`
   padding-left: 1.25rem;
 `;
 
-export const Form = ({ event, company, student, titles, action, method }) => {
+export const Form = ({ event, student, company, titles, action, method }) => {
   return (
     <StyledForm action={action} method={method}>
       {event && (
@@ -71,7 +71,11 @@ export const Form = ({ event, company, student, titles, action, method }) => {
             placeholder="Ex. email@example.com"
             isRequired
           ></Input>
-          <Input label="Lösenord*" type="password"></Input>
+          <Input
+            label="Lösenord*"
+            type="password"
+            placeholder="Enter password"
+          ></Input>
 
           <StyledTitle>{titles.two}</StyledTitle>
           <Input
@@ -103,14 +107,7 @@ export const Form = ({ event, company, student, titles, action, method }) => {
             type="text"
             placeholder="Ex. www.linkedin.se/example"
           ></Input>
-
-          <Button
-            textColor="white"
-            label="CV"
-            backgroundColor="red"
-            text="Ladda upp CV"
-          ></Button>
-          <Input label="Föredragen arbetsform" type="select"></Input>
+          <Input label="CV" type="file"></Input>
 
           <Input label="program och tekniska kunskaper"></Input>
           <Button

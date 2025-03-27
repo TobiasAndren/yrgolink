@@ -16,37 +16,37 @@ const ToggleButton = styled.button`
   cursor: pointer;
   font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
   background-color: ${({ variant }) =>
-    variant === "student" ? "var(--bg-red)" : "var(--bg-blue)"};
+    variant === "company" ? "var(--bg-blue)" : "var(--bg-red)"};
   color: white;
   transition: font-weight 0.3s;
   opacity: ${({ isActive }) => (isActive ? "1" : "0.5")};
 `;
 
 export default function Home() {
-  const [isStudent, setIsStudent] = React.useState(true);
+  const [isCompany, setIsCompany] = React.useState(true);
 
   return (
     <>
       <ToggleContainer>
         <ToggleButton
-          isActive={isStudent}
+          isActive={!isCompany}
           variant="student"
-          onClick={() => setIsStudent(true)}
+          onClick={() => setIsCompany(false)}
         >
           Student
         </ToggleButton>
         <ToggleButton
-          isActive={!isStudent}
+          isActive={isCompany}
           variant="company"
-          onClick={() => setIsStudent(false)}
+          onClick={() => setIsCompany(true)}
         >
           Företag
         </ToggleButton>
       </ToggleContainer>
 
       <Form
-        company={!isStudent}
-        student={isStudent}
+        company={isCompany}
+        student={!isCompany}
         titles={{
           one: "Kontodetaljer",
           two: "Företags information",
@@ -55,11 +55,4 @@ export default function Home() {
       ></Form>
     </>
   );
-}
-
-{
-  /* <Form
-  event
-  titles={{ one: "Företagsinformation", two: "Kontaktperson" }}
-></Form> */
 }
