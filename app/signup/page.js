@@ -1,6 +1,6 @@
 "use client";
 
-import { Form } from "../components/form/form";
+import { Form } from "../components/forms/Form";
 import styled from "@emotion/styled";
 import React from "react";
 
@@ -25,6 +25,13 @@ const ToggleButton = styled.button`
 export default function Home() {
   const [isCompany, setIsCompany] = React.useState(true);
 
+  const titles = isCompany
+    ? {
+        one: "Kontodetaljer",
+        two: "Företags information",
+        three: "LIA-platser",
+      }
+    : { one: "Kontodetaljer", two: "Personuppgifter", three: "Länkar" };
   return (
     <>
       <ToggleContainer>
@@ -44,15 +51,7 @@ export default function Home() {
         </ToggleButton>
       </ToggleContainer>
 
-      <Form
-        company={isCompany}
-        student={!isCompany}
-        titles={{
-          one: "Kontodetaljer",
-          two: "Företags information",
-          three: "LIA-platser",
-        }}
-      ></Form>
+      <Form company={isCompany} student={!isCompany} titles={titles}></Form>
     </>
   );
 }

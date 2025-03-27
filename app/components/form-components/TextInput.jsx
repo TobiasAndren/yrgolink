@@ -18,8 +18,9 @@ const StyledInput = styled.input`
   border: none;
 `;
 
-export const Input = ({
+export const TextInput = ({
   label,
+  name,
   type,
   value,
   placeholder,
@@ -27,11 +28,12 @@ export const Input = ({
   isRequired,
 }) => {
   return (
-    <StyledLabel>
+    <StyledLabel htmlFor={name}>
       {label}
       <StyledInput
         type={type}
         value={value}
+        id={name}
         placeholder={placeholder}
         onChange={onChange}
         required={isRequired}
