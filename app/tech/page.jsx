@@ -2,21 +2,21 @@
 import { useCallback, useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 
-export default function ProfileForm({ user }) {
+export default function AccountForm({ user }) {
   const supabase = createClient()
   const [loading, setLoading] = useState(true)
-  const [first_name, setFirstName] = useState(null)
-  const [last_name, setLastName] = useState(null)
-  const [description, setDescription] = useState(null)
+  const [fullname, setFullname] = useState(null)
+  const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
+  const [avatar_url, setAvatarUrl] = useState(null)
 
   const getProfile = useCallback(async () => {
     try {
       setLoading(true)
 
       const { data, error, status } = await supabase
-        .from('students')
-        .select(`first_name, last_name, description, website`)
+        .from('technologies')
+        .select('*')
         .eq('id', user?.id)
         .single()
 
@@ -25,10 +25,10 @@ export default function ProfileForm({ user }) {
       }
 
       if (data) {
-        setFirstName(data.first_name)
-        setLastName(data.last_name)
-        setDescription(data.description)
+        setFullname(data.full_name)
+        setUsername(data.username)
         setWebsite(data.website)
+        setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -41,19 +41,20 @@ export default function ProfileForm({ user }) {
     getProfile()
   }, [user, getProfile])
 
-  async function updateProfile({ name, description, website }) {
+  async function updateProfile({ username, website, avatar_url }) {
     try {
       setLoading(true)
 
-      const { error } = await supabase.from('students').upsert({
+      const { error } = await supabase.from('profiles').upsert({
         id: user?.id,
-        name,
-        description,
+        full_name: fullname,
+        username,
         website,
+        avatar_url,
         updated_at: new Date().toISOString(),
       })
       if (error) throw error
-      alert('Credentials updated!')
+      alert('Profile updated!')
     } catch (error) {
       alert('Error updating the data!')
     } finally {
@@ -62,37 +63,28 @@ export default function ProfileForm({ user }) {
   }
 
   return (
-    <section>
+    <div className="form-widget">
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={user?.email} disabled />
       </div>
       <div>
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="fullName">Full Name</label>
         <input
-          id="firstName"
+          id="fullName"
           type="text"
-          value={first_name || ''}
-          onChange={(e) => setFirstName(e.target.value)}
+          value={fullname || ''}
+          onChange={(e) => setFullname(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="lastName">Last Name</label>
+        <label htmlFor="username">Username</label>
         <input
-          id="lastName"
+          id="username"
           type="text"
-          value={last_name || ''}
-          onChange={(e) => setLastName(e.target.value)}
+          value={username || ''}
+          onChange={(e) => setUsername(e.target.value)}
         />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          type="text"
-          value={description || ''}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
       </div>
       <div>
         <label htmlFor="website">Website</label>
@@ -107,7 +99,7 @@ export default function ProfileForm({ user }) {
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ first_name, last_name, description, website })}
+          onClick={() => updateProfile({ fullname, username, website, avatar_url })}
           disabled={loading}
         >
           {loading ? 'Loading ...' : 'Update'}
@@ -121,6 +113,6 @@ export default function ProfileForm({ user }) {
           </button>
         </form>
       </div>
-    </section>
+    </div>
   )
 }

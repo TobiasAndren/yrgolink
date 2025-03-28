@@ -5,7 +5,6 @@ export function Footer() {
   
     return (
       <footer style={style}>
-        <img src="logo2.svg" />
         <ul>
             <li>Kontakt</li>
             <li>Integritetspolicy</li>
