@@ -1,118 +1,124 @@
-'use client'
-import { useCallback, useEffect, useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
+"use client";
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { createClient } from '@/utils/supabase/client';
 
 export default function ProfileForm({ user }) {
-  const supabase = createClient()
-  const [loading, setLoading] = useState(true)
-  const [first_name, setFirstName] = useState(null)
-  const [last_name, setLastName] = useState(null)
-  const [description, setDescription] = useState(null)
-  const [website, setWebsite] = useState(null)
+  const supabase = useMemo(() => createClient(), []); // Memoize supabase client
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // New state to hold error messages
 
   const getProfile = useCallback(async () => {
     try {
-      setLoading(true)
-
+      setLoading(true);
       const { data, error, status } = await supabase
         .from('students')
-        .select(`first_name, last_name, description, website`)
+        .select('name, class, description, website')
         .eq('id', user?.id)
-        .single()
+        .single();
 
       if (error && status !== 406) {
-        throw error
+        throw error;
       }
 
-      if (data) {
-        setFirstName(data.first_name)
-        setLastName(data.last_name)
-        setDescription(data.description)
-        setWebsite(data.website)
-      }
+      // Assuming profile data is being set in form elements' defaultValue
     } catch (error) {
-      alert('Error loading user data!')
+      setError('Error loading user data!');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [user, supabase])
+  }, [supabase, user]); // Memoize the getProfile function
 
   useEffect(() => {
-    getProfile()
-  }, [user, getProfile])
+    if (user?.id) {
+      getProfile();
+    }
+  }, [user, getProfile]);
 
-  async function updateProfile({ name, description, website }) {
+  async function updateProfile(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(e.target); // Get form data
+
     try {
-      setLoading(true)
+      setLoading(true);
 
       const { error } = await supabase.from('students').upsert({
         id: user?.id,
-        name,
-        description,
-        website,
+        name: formData.get('name'),
+        class: formData.get('class'),
+        description: formData.get('description'),
+        website: formData.get('website'),
         updated_at: new Date().toISOString(),
-      })
-      if (error) throw error
-      alert('Credentials updated!')
+      });
+
+      if (error) throw error;
+      alert('Credentials updated!');
     } catch (error) {
-      alert('Error updating the data!')
+      setError('Error updating the data!');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
     <section>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={user?.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          id="firstName"
-          type="text"
-          value={first_name || ''}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          id="lastName"
-          type="text"
-          value={last_name || ''}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          type="text"
-          value={description || ''}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+      <form onSubmit={updateProfile}>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input id="email" type="text" value={user?.email} disabled />
+        </div>
 
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => updateProfile({ first_name, last_name, description, website })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
+        <div>
+          <label htmlFor="name">Namn</label>
+          <input
+            id="name"
+            name="name" // name attribute is required to access the form data
+            type="text"
+            defaultValue={user?.name || ''} // Use defaultValue instead of state
+          />
+        </div>
+
+        <div>
+          <label htmlFor="class">Klass</label>
+          <input
+            id="class"
+            name="class" // name attribute for form submission
+            type="text"
+            defaultValue={user?.classOption || ''}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description" // name attribute for form submission
+            defaultValue={user?.description || ''}
+          ></textarea>
+        </div>
+
+        <div>
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            name="website" // name attribute for form submission
+            type="url"
+            defaultValue={user?.website || ''}
+          />
+        </div>
+
+        {error && <div style={{ color: 'red' }}>{error}</div>} {/* Error message */}
+
+        <div>
+          <button
+            className="button primary block"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? 'Loading ...' : 'Update'}
+          </button>
+        </div>
+      </form>
 
       <div>
         <form action="/auth/signout" method="post">
@@ -122,5 +128,5 @@ export default function ProfileForm({ user }) {
         </form>
       </div>
     </section>
-  )
+  );
 }
