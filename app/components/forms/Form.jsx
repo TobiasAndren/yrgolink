@@ -3,6 +3,7 @@
 import styled from "@emotion/styled";
 import { SignupForm } from "./SignupForm";
 import { EventForm } from "./EventForm";
+import { LoginForm } from "./LoginForm"
 
 const StyledForm = styled.form`
   height: auto;
@@ -14,12 +15,13 @@ const StyledForm = styled.form`
   align-self: stretch;
 `;
 
-export const Form = ({ event, student, company, titles, action, method }) => {
+export const Form = ({ event, student, company, titles, action, method, login }) => {
   return (
     <StyledForm action={action} method={method}>
       {event && <EventForm titles={titles} />}
       {student && <SignupForm type="student" titles={titles} />}
       {company && <SignupForm type="company" titles={titles} />}
+      {login && <LoginForm />}
     </StyledForm>
   );
 };

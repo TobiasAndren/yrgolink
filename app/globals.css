@@ -171,6 +171,9 @@ button {
   margin-top: 1.25rem;
   width: 100%;
 }
+button:active {
+  background-color: black;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
