@@ -23,11 +23,19 @@ const StyledButton = styled.button(
 `
 );
 
-export const Button = ({ textColor, backgroundColor, label, text, type }) => {
+export const Button = ({
+  textColor,
+  backgroundColor,
+  label,
+  text,
+  type,
+  formAction,
+}) => {
   return (
     <StyledLabel>
       {label}
       <StyledButton
+        formAction={formAction}
         textColor={textColor}
         backgroundColor={backgroundColor}
         type={type}

@@ -8,17 +8,10 @@ export const StudentForm = ({ titles }) => {
     <>
       <FormSectionTitle>{titles.two}</FormSectionTitle>
       <TextInput
-        label="Förnamn*"
+        label="Namn*"
         type="text"
-        placeholder="Ex. Karl"
-        name="firstname"
-        isRequired
-      ></TextInput>
-      <TextInput
-        label="Efternamn*"
-        type="text"
-        placeholder="Ex. Andersson"
-        name="lastname"
+        placeholder="Ex. Karl Andersson"
+        name="fullname"
         isRequired
       ></TextInput>
       <TextInput label="Klass" type="text"></TextInput>

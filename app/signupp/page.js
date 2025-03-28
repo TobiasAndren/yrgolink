@@ -28,7 +28,7 @@ export default function Home() {
   const titles = isCompany
     ? {
         one: "Kontodetaljer",
-        two: "Företags information",
+        two: "Företagsinformation",
         three: "LIA-platser",
       }
     : { one: "Kontodetaljer", two: "Personuppgifter", three: "Länkar" };
@@ -36,18 +36,18 @@ export default function Home() {
     <>
       <ToggleContainer>
         <ToggleButton
-          isActive={!isCompany}
-          variant="student"
-          onClick={() => setIsCompany(false)}
-        >
-          Student
-        </ToggleButton>
-        <ToggleButton
           isActive={isCompany}
           variant="company"
           onClick={() => setIsCompany(true)}
         >
           Företag
+        </ToggleButton>
+        <ToggleButton
+          isActive={!isCompany}
+          variant="student"
+          onClick={() => setIsCompany(false)}
+        >
+          Student
         </ToggleButton>
       </ToggleContainer>
 
