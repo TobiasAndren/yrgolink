@@ -6,6 +6,12 @@ export default function ProfileForm({ user }) {
   const supabase = useMemo(() => createClient(), []); // Memoize supabase client
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // New state to hold error messages
+  const [profile, setProfile] = useState({
+    name: '',
+    class: '',
+    description: '',
+    website: ''
+  }); // State to hold profile data
 
   const getProfile = useCallback(async () => {
     try {
@@ -16,28 +22,32 @@ export default function ProfileForm({ user }) {
         .eq('id', user?.id)
         .single();
 
-      if (error && status !== 406) {
-        throw error;
-      }
+      if (error) throw error;
 
-      // Assuming profile data is being set in form elements' defaultValue
+      // Set profile data in state after fetching
+      setProfile({
+        name: data?.name || '',
+        class: data?.class || '',
+        description: data?.description || '',
+        website: data?.website || ''
+      });
     } catch (error) {
       setError('Error loading user data!');
     } finally {
       setLoading(false);
     }
-  }, [supabase, user]); // Memoize the getProfile function
+  }, [supabase, user?.id]);
 
   useEffect(() => {
     if (user?.id) {
       getProfile();
     }
-  }, [user, getProfile]);
+  }, [user?.id, getProfile]);
 
   async function updateProfile(e) {
     e.preventDefault(); // Prevent default form submission
 
-    const formData = new FormData(e.target); // Get form data
+    const formData = new FormData(e.target); // Get form data from the form
 
     try {
       setLoading(true);
@@ -72,9 +82,9 @@ export default function ProfileForm({ user }) {
           <label htmlFor="name">Namn</label>
           <input
             id="name"
-            name="name" // name attribute is required to access the form data
+            name="name"
             type="text"
-            defaultValue={user?.name || ''} // Use defaultValue instead of state
+            defaultValue={profile.name} 
           />
         </div>
 
@@ -82,9 +92,9 @@ export default function ProfileForm({ user }) {
           <label htmlFor="class">Klass</label>
           <input
             id="class"
-            name="class" // name attribute for form submission
+            name="class"
             type="text"
-            defaultValue={user?.classOption || ''}
+            defaultValue={profile.class} 
           />
         </div>
 
@@ -92,8 +102,8 @@ export default function ProfileForm({ user }) {
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
-            name="description" // name attribute for form submission
-            defaultValue={user?.description || ''}
+            name="description"
+            defaultValue={profile.description}
           ></textarea>
         </div>
 
@@ -101,9 +111,9 @@ export default function ProfileForm({ user }) {
           <label htmlFor="website">Website</label>
           <input
             id="website"
-            name="website" // name attribute for form submission
+            name="website"
             type="url"
-            defaultValue={user?.website || ''}
+            defaultValue={profile.website}
           />
         </div>
 
