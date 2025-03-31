@@ -16,6 +16,7 @@ const StyledLabel = styled.label`
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+    font-size: 0.875rem;
   `}
 `;
 

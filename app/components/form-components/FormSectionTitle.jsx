@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 
-const StyledTitle = styled.h3`
+const StyledTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: 400;
   align-self: flex-start;

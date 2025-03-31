@@ -40,7 +40,9 @@ export const CompanyForm = ({ titles }) => {
         placeholder="Skriv kort om era LIA-platser"
         name="description"
       ></Input>
-      <Input label="Möjliga Arbetsformer" type="text"></Input>
+      <Input label="På plats" type="checkbox"></Input>
+      <Input label="Remote" type="checkbox"></Input>
+      <Input label="Hybrid" type="checkbox"></Input>
 
       <Input label="Kunskaper som sökes"></Input>
     </>

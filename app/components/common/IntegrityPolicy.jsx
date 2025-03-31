@@ -38,7 +38,6 @@ const CloseButton = styled.span`
   right: 1.25rem;
   border: 0;
   background: none;
-  font-size: 1.5rem;
   cursor: pointer;
 `;
 
