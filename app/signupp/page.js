@@ -3,6 +3,7 @@
 import { Form } from "../components/forms/Form";
 import styled from "@emotion/styled";
 import React from "react";
+import { Hero } from "../components/Hero";
 
 const ToggleContainer = styled.div`
   display: flex;
@@ -32,8 +33,20 @@ export default function Home() {
         three: "LIA-platser",
       }
     : { one: "Kontodetaljer", two: "Personuppgifter", three: "Länkar" };
+
+  const heroProps = isCompany
+    ? {
+        backgroundColor: "blue",
+        text: "Företag",
+      }
+    : {
+        backgroundColor: "red",
+        text: "Student",
+      };
+
   return (
     <>
+      <Hero {...heroProps} title="registrera"></Hero>
       <ToggleContainer>
         <ToggleButton
           isActive={isCompany}

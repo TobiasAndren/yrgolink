@@ -3,7 +3,7 @@
 import styled from "@emotion/styled";
 import { SignupForm } from "./SignupForm";
 import { EventForm } from "./EventForm";
-import { LoginForm } from "./LoginForm"
+import { LoginForm } from "./LoginForm";
 
 const StyledForm = styled.form`
   height: auto;
@@ -11,11 +11,19 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 0.75rem;
   align-self: stretch;
 `;
 
-export const Form = ({ event, student, company, titles, action, method, login }) => {
+export const Form = ({
+  event,
+  student,
+  company,
+  titles,
+  action,
+  method,
+  login,
+}) => {
   return (
     <StyledForm action={action} method={method}>
       {event && <EventForm titles={titles} />}
