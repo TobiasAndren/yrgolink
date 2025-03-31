@@ -35,10 +35,12 @@ body {
 body {
   color: var(--black);
   background: var(--foreground);
-  width: 390px; /* för mobil dev */
+  width: 390px;
+  /* för mobil dev */
   margin: 0 auto;
   font: 300 1rem 'inter', sans-serif;
-  line-height: 1.6rem; /* tillfälligt */
+  line-height: 1.6rem;
+  /* tillfälligt */
 }
 
 
@@ -53,6 +55,7 @@ nav#top {
   justify-content: space-between;
   padding: 1.5rem 1.25rem;
 }
+
 nav#top ul {
   display: flex;
   align-items: center;
@@ -72,7 +75,8 @@ header h1 {
   font-weight: 900;
   text-transform: uppercase;
 }
-header h1 + p {
+
+header h1+p {
   font-size: 2rem;
   font-weight: 200;
   line-height: 2rem;
@@ -83,9 +87,10 @@ main {
   background: var(--bg-white);
   display: flex;
   flex-direction: column;
-  padding: 2.5rem 0;
-  gap: 2.5rem;
+  /* padding: 2.5rem 0; */
+  gap: 1rem;
 }
+
 main section {
   padding: 0 1.25rem;
 }
@@ -97,10 +102,12 @@ footer {
   gap: 2.25rem;
   align-items: start;
 }
+
 footer ul {
   list-style: none;
 }
 
+/* 
 form {
   padding: 2.5rem 1.25rem;
   background: var(--bg-grey);
@@ -179,4 +186,4 @@ button:active {
   html {
     color-scheme: dark;
   }
-}
+} */

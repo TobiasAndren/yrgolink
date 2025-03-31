@@ -12,11 +12,12 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <TopNav/>
-        <HeaderStart />
+        <TopNav />
         <main>{children}</main>
         <Footer />
       </body>
     </html>
   );
 }
+
+{/* <HeaderStart /> */}

@@ -3,7 +3,7 @@
 import { Form } from "../components/forms/Form";
 import styled from "@emotion/styled";
 import React from "react";
-import { Hero } from "../components/Hero";
+import { Hero } from "../components/common/Hero";
 
 const ToggleContainer = styled.div`
   display: flex;

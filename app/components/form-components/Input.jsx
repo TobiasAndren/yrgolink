@@ -7,6 +7,16 @@ const StyledLabel = styled.label`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  ${({ type }) =>
+    type === "checkbox" &&
+    `
+    padding: 0;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  `}
 `;
 
 const StyledInput = styled.input`
@@ -16,20 +26,29 @@ const StyledInput = styled.input`
   background: #e6e6e6;
   border-radius: 0.75rem;
   border: none;
+
+  ${({ type }) =>
+    type === "checkbox" &&
+    `
+    width: auto;
+    height: auto;
+    padding: 0;
+  `}
 `;
 
-export const TextInput = ({
+export const Input = ({
   label,
   name,
   type,
   value,
+  link,
   placeholder,
   onChange,
   isRequired,
 }) => {
   return (
-    <StyledLabel htmlFor={name}>
-      {label}
+    <StyledLabel htmlFor={name} type={type}>
+      {type != "checkbox" && label}
       <StyledInput
         type={type}
         value={value}
@@ -38,6 +57,8 @@ export const TextInput = ({
         onChange={onChange}
         required={isRequired}
       ></StyledInput>
+      {type == "checkbox" && label}
+      {link && link}
     </StyledLabel>
   );
 };
