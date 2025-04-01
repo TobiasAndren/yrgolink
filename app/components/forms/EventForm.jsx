@@ -3,6 +3,7 @@
 import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
+import { PolicyLink } from "../footer/PolicyLink";
 
 export const EventForm = ({ titles }) => {
   return (
@@ -41,6 +42,12 @@ export const EventForm = ({ titles }) => {
         type="tel"
         name="phone"
         placeholder="Ex. 073 123 45 67"
+      ></Input>
+      <Input
+        label="Jag har läst och godkänt"
+        link={<PolicyLink></PolicyLink>}
+        type="checkbox"
+        name="policy"
       ></Input>
       <Button
         textColor="white"

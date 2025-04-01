@@ -3,8 +3,9 @@
 import styled from "@emotion/styled";
 
 const StyledHero = styled.section(
-  ({ backgroundColor }) => `
+  ({ backgroundColor, backgroundImage }) => `
     background-color: var(--bg-${backgroundColor});
+    background-image: url(${backgroundImage});
     color: var(--white);
     padding: 2.5rem 1.25rem;
     display: flex;
@@ -53,11 +54,22 @@ const StyledHero = styled.section(
 `
 );
 
-export const Hero = ({ backgroundColor, title, text }) => {
+export const Hero = ({
+  backgroundColor,
+  title,
+  text,
+  text2,
+  backgroundImage,
+}) => {
   return (
-    <StyledHero backgroundColor={backgroundColor} className="slide-in">
-      <h1>{title}</h1>
-      <h3>{text}</h3>
+    <StyledHero
+      backgroundColor={backgroundColor}
+      className="slide-in"
+      backgroundImage={backgroundImage}
+    >
+      {title && <h1>{title}</h1>}
+      {text && <h3>{text}</h3>}
+      {text2 && <h3>{text2}</h3>}
     </StyledHero>
   );
 };

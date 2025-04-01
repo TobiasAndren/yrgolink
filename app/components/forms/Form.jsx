@@ -7,6 +7,8 @@ import { LoginForm } from "./LoginForm";
 
 const StyledForm = styled.form`
   height: auto;
+  background-color: var(--bg-grey);
+  padding-bottom: 3rem;
   width: 100vw;
   display: flex;
   flex-direction: column;

@@ -9,6 +9,7 @@ const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   justify-content: center;
   align-items: center;

@@ -15,7 +15,7 @@ const StyledLabel = styled.label`
     display:flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
     font-size: 0.875rem;
   `}
 `;
@@ -24,7 +24,7 @@ const StyledInput = styled.input`
   padding: 0.75rem 1.25rem;
   height: 3rem;
   color: black;
-  background: #e6e6e6;
+  background-color: var(--white);
   border-radius: 0.75rem;
   border: none;
 

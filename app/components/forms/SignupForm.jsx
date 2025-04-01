@@ -6,7 +6,6 @@ import { FormSectionTitle } from "../form-components/FormSectionTitle";
 import { StudentForm } from "./StudentForm";
 import { CompanyForm } from "./CompanyForm";
 import { PolicyLink } from "../footer/PolicyLink";
-// import { IntegrityPolicy } from "../common/IntegrityPolicy";
 
 export const SignupForm = ({ type, titles }) => {
   return (

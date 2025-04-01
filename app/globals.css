@@ -83,12 +83,16 @@ header h1+p {
   text-transform: uppercase;
 }
 
-main {
+/* main {
   background: var(--bg-white);
   display: flex;
   flex-direction: column;
-  /* padding: 2.5rem 0; */
   gap: 1rem;
+  padding: 2.5rem 0;
+} */
+
+.form-page {
+  background-color: var(--bg-grey);
 }
 
 main section {

@@ -5,22 +5,23 @@ import { IntegrityPolicy } from "../common/IntegrityPolicy";
 import styled from "@emotion/styled";
 
 const StyledLink = styled.span(
-  ({ textColor }) => `
+  ({ textColor, footer }) => `
     background: none;
     border: none;
     color: ${textColor};
-    text-decoration: underline;
+    text-decoration: ${footer ? "none" : "underline"};
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: ${footer ? "1rem" : "0.875rem"};
 `
 );
 
-export const PolicyLink = () => {
+export const PolicyLink = ({ footer }) => {
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
 
   return (
     <>
       <StyledLink
+        footer={footer}
         role="button"
         onMouseDown={(e) => {
           e.preventDefault();
@@ -28,7 +29,7 @@ export const PolicyLink = () => {
           setIsPolicyOpen(true);
         }}
       >
-        integritetspolicyn.
+        {footer ? "Integritetspolicy" : "integritetspolicyn."}
       </StyledLink>
 
       <IntegrityPolicy
