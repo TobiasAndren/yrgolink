@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -12,6 +13,14 @@ export default function ProfileForm({ user }) {
     description: '',
     website: ''
   }); // State to hold profile data
+  const [selectedClass, setSelectedClass] = useState(profile?.class || '');
+
+  useEffect(() => {
+    // När profilen laddas, uppdatera `selectedClass`
+    if (profile?.class) {
+      setSelectedClass(profile.class);
+    }
+  }, [profile]);
 
   const getProfile = useCallback(async () => {
     try {
@@ -58,6 +67,7 @@ export default function ProfileForm({ user }) {
         class: formData.get('class'),
         description: formData.get('description'),
         website: formData.get('website'),
+        linkedin: formData.get('linkedin'),
         updated_at: new Date().toISOString(),
       });
 
@@ -71,43 +81,60 @@ export default function ProfileForm({ user }) {
   }
 
   return (
-    <section>
+    <>
+      <h2>Profil</h2>
       <form onSubmit={updateProfile}>
-        <div>
+        <fieldset>
           <label htmlFor="email">Email</label>
           <input id="email" type="text" value={user?.email} disabled />
-        </div>
+        </fieldset>
 
-        <div>
-          <label htmlFor="name">Namn</label>
+        <fieldset>
+          <legend>Personlig information</legend>
+          <label htmlFor="name">Namn *</label>
           <input
             id="name"
             name="name"
             type="text"
             defaultValue={profile.name} 
+            required
           />
-        </div>
+          
+          <fieldset id="dd-wu">
+        <legend>Klass</legend>
+        <input
+          id="designer"
+          name="class"
+          type="radio"
+          value="designer"
+          checked={selectedClass === 'designer'} // Om 'selectedClass' är 'designer' blir den markerad
+          onChange={() => setSelectedClass('designer')} // Uppdatera när användaren väljer detta
+        />
+        <label htmlFor="designer">Digital designer</label>
 
-        <div>
-          <label htmlFor="class">Klass</label>
-          <input
-            id="class"
-            name="class"
-            type="text"
-            defaultValue={profile.class} 
-          />
-        </div>
-
-        <div>
+        <input
+          id="developer"
+          name="class"
+          type="radio"
+          value="developer"
+          checked={selectedClass === 'developer'} // Om 'selectedClass' är 'developer' blir den markerad
+          onChange={() => setSelectedClass('developer')} // Uppdatera när användaren väljer detta
+        />
+        <label htmlFor="developer">Webbutvecklare</label>
+      </fieldset>
+      
+          
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
             name="description"
             defaultValue={profile.description}
           ></textarea>
-        </div>
+        </fieldset>
 
-        <div>
+        <fieldset>
+          <legend>Länkar</legend>
+
           <label htmlFor="website">Website</label>
           <input
             id="website"
@@ -115,7 +142,14 @@ export default function ProfileForm({ user }) {
             type="url"
             defaultValue={profile.website}
           />
-        </div>
+          <label htmlFor="linkedin">LinkedIn</label>
+          <input
+            id="linkedin"
+            name="linkedin"
+            type="url"
+            defaultValue={profile.linkedin}
+          />
+        </fieldset>
 
         {error && <div style={{ color: 'red' }}>{error}</div>} {/* Error message */}
 
@@ -137,6 +171,6 @@ export default function ProfileForm({ user }) {
           </button>
         </form>
       </div>
-    </section>
+    </>
   );
 }
