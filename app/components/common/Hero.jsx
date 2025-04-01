@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 const StyledHero = styled.section(
   ({ backgroundColor, backgroundImage }) => `
     background-color: var(--bg-${backgroundColor});
-    background-image: url(${backgroundImage});
+    ${backgroundImage ? `background-image: url(${backgroundImage});` : ""}
     color: var(--white);
     padding: 2.5rem 1.25rem;
     display: flex;
