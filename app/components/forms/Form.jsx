@@ -9,12 +9,25 @@ const StyledForm = styled.form`
   height: auto;
   background-color: var(--bg-grey);
   padding-bottom: 3rem;
-  width: 100vw;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  align-self: stretch;
+  align-self: center;
+
+  @media (min-width: 600px) {
+    width: 80%;
+  }
+
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 50%;
+    gap: 2rem;
+  }
 `;
 
 export const Form = ({

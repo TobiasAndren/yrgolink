@@ -3,7 +3,7 @@
 import styled from "@emotion/styled";
 
 const StyledLabel = styled.label`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -31,7 +31,6 @@ const StyledInput = styled.input`
   ${({ type }) =>
     type === "checkbox" &&
     `
-    width: auto;
     height: auto;
     padding: 0;
   `}

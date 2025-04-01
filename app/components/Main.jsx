@@ -9,6 +9,7 @@ const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100vw;
 `;
 
 export function Main({ children }) {

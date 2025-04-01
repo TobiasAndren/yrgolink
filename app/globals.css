@@ -35,7 +35,7 @@ body {
 body {
   color: var(--black);
   background: var(--foreground);
-  width: 390px;
+  /* width: 390px; */
   /* för mobil dev */
   margin: 0 auto;
   font: 300 1rem 'inter', sans-serif;

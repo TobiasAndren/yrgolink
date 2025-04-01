@@ -15,6 +15,7 @@ const StyledHero = styled.section(
     width: 100%;
     transition: background-color 200ms ease-in-out;
     overflow: hidden;
+    gap: 0.2rem;
     
     &.slide-in {
         animation: slideIn 0.5 ease-out;
@@ -32,6 +33,7 @@ const StyledHero = styled.section(
     }
 
     h1 {
+        height: 2rem;
         font-size: 2rem;
         line-height: 2rem;
         font-style: normal;
@@ -40,6 +42,7 @@ const StyledHero = styled.section(
     }
     
     h3 {
+        height: 2rem;
         font-size: 2rem;
         font-weight: 200;
         line-height: 2rem;
@@ -51,6 +54,53 @@ const StyledHero = styled.section(
         font-weight: 900;
     }
 
+  @media (min-width: 600px) {
+    padding: 0rem 3.5rem;
+    min-height: 15rem;
+    gap: 0.5rem;
+
+    h1 {
+      height: 2.5rem;
+      font-size: 2.5rem;
+    }
+
+    h3 {
+      height: 2.5rem;
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 0rem 6.5rem;
+    min-height: 20rem;
+    gap: 0.5rem;
+
+    h1 {
+      height: 3rem;
+      font-size: 3rem;
+    }
+
+    h3 {
+      height: 3rem;
+      font-size: 3rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    padding: 0rem 9.5rem;
+    min-height: 30rem;
+    gap: 0.5rem;
+
+    h1 {
+      height: 4.5rem;
+      font-size: 4.5rem;
+    }
+
+    h3 {
+      height: 4.5rem;
+      font-size: 4.5rem;
+    }
+  }
 `
 );
 

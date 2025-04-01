@@ -8,6 +8,18 @@ import { Hero } from "../components/common/Hero";
 const ToggleContainer = styled.div`
   display: flex;
   width: 100%;
+
+  @media (min-width: 768px) {
+    width: 70%;
+    align-self: center;
+  }
+
+  @media (min-width: 1200px) {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    width: 50%;
+    align-self: center;
+  }
 `;
 
 const ToggleButton = styled.button`
