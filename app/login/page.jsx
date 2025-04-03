@@ -1,19 +1,24 @@
-import { Form } from '../components/forms/Form'
-import { redirect } from 'next/navigation'
-import { createClient } from '@/utils/supabase/server'
+import { Form } from "../components/forms/Form";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import { Hero } from "../components/common/Hero";
 
 export default async function LoginPage() {
-    const supabase = await createClient()
+  const supabase = await createClient();
 
-    const {
+  const {
     data: { user },
-    } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser();
 
-    if (user) { // if user is logged in, redirect them to their profile page
-    redirect('/profile')
-    }
+  if (user) {
+    // if user is logged in, redirect them to their profile page
+    redirect("/profile");
+  }
 
   return (
-    <Form login />
-  )
+    <>
+      <Hero backgroundColor="red" title="Logga in"></Hero>
+      <Form login />
+    </>
+  );
 }
