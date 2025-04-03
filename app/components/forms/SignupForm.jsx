@@ -9,7 +9,7 @@ import { PolicyLink } from "../footer/PolicyLink";
 
 export const SignupForm = ({ type, titles }) => {
   return (
-    <>
+    <form>
       <FormSectionTitle>{titles.one}</FormSectionTitle>
 
       <Input
@@ -27,11 +27,11 @@ export const SignupForm = ({ type, titles }) => {
         isRequired
       ></Input>
 
-      {type === "student" ? (
+      {/* {type === "student" ? (
         <StudentForm titles={titles} />
       ) : (
         <CompanyForm titles={titles} />
-      )}
+      )} */}
 
       <Input
         label="Jag har läst och godkänt"
@@ -45,6 +45,6 @@ export const SignupForm = ({ type, titles }) => {
         text={type === "company" ? "Registrera företag" : "Registrera student"}
         type="submit"
       />
-    </>
+    </form>
   );
 };

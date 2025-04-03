@@ -5,7 +5,7 @@ import { FormSectionTitle } from "../form-components/FormSectionTitle";
 
 export const StudentForm = ({ titles }) => {
   return (
-    <>
+    <form>
       <FormSectionTitle>{titles.two}</FormSectionTitle>
       <Input
         label="Namn*"
@@ -37,6 +37,6 @@ export const StudentForm = ({ titles }) => {
       <Input label="CV" type="file"></Input>
 
       <Input label="program och tekniska kunskaper"></Input>
-    </>
+    </form>
   );
 };

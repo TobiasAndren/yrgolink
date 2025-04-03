@@ -5,7 +5,7 @@ import { FormSectionTitle } from "../form-components/FormSectionTitle";
 
 export const CompanyForm = ({ titles }) => {
   return (
-    <>
+    <form>
       <FormSectionTitle>{titles.two}</FormSectionTitle>
       <Input
         label="Namn*"
@@ -45,6 +45,6 @@ export const CompanyForm = ({ titles }) => {
       <Input label="Hybrid" type="checkbox"></Input>
 
       <Input label="Kunskaper som sökes"></Input>
-    </>
+    </form>
   );
 };

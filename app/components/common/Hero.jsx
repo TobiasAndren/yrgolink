@@ -6,6 +6,7 @@ const StyledHero = styled.section(
   ({ backgroundColor, backgroundImage }) => `
     background-color: var(--bg-${backgroundColor});
     ${backgroundImage ? `background-image: url(${backgroundImage});` : ""}
+    background-size: cover;
     color: var(--white);
     padding: 2.5rem 1.25rem;
     display: flex;
@@ -33,21 +34,20 @@ const StyledHero = styled.section(
     }
 
     h1 {
-        height: 2rem;
         font-size: 2rem;
-        line-height: 2rem;
+        line-height: 1em;
         font-style: normal;
         font-weight: 900;
         text-transform: uppercase;
     }
     
     h3 {
-        height: 2rem;
         font-size: 2rem;
         font-weight: 200;
         line-height: 2rem;
         text-transform: uppercase;
         transition: all 150ms ease-in-out;
+        line-height: 1em;
     }
 
     h3:hover {
@@ -60,12 +60,10 @@ const StyledHero = styled.section(
     gap: 0.5rem;
 
     h1 {
-      height: 2.5rem;
       font-size: 2.5rem;
     }
 
     h3 {
-      height: 2.5rem;
       font-size: 2.5rem;
     }
   }
@@ -76,12 +74,10 @@ const StyledHero = styled.section(
     gap: 0.5rem;
 
     h1 {
-      height: 3rem;
       font-size: 3rem;
     }
 
     h3 {
-      height: 3rem;
       font-size: 3rem;
     }
   }
@@ -92,12 +88,10 @@ const StyledHero = styled.section(
     gap: 0.5rem;
 
     h1 {
-      height: 4.5rem;
       font-size: 4.5rem;
     }
 
     h3 {
-      height: 4.5rem;
       font-size: 4.5rem;
     }
   }
@@ -118,8 +112,12 @@ export const Hero = ({
       backgroundImage={backgroundImage}
     >
       {title && <h1>{title}</h1>}
-      {text && <h3>{text}</h3>}
-      {text2 && <h3>{text2}</h3>}
+      {text && (
+        <h3>
+          {text} <br></br>
+          {text2}
+        </h3>
+      )}
     </StyledHero>
   );
 };

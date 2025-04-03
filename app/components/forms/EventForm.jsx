@@ -7,7 +7,7 @@ import { PolicyLink } from "../footer/PolicyLink";
 
 export const EventForm = ({ titles }) => {
   return (
-    <>
+    <form>
       <FormSectionTitle>{titles?.one}</FormSectionTitle>
       <Input
         label="Namn på företag*"
@@ -55,6 +55,6 @@ export const EventForm = ({ titles }) => {
         text="Anmäl företag"
         type="submit"
       ></Button>
-    </>
+    </form>
   );
 };
