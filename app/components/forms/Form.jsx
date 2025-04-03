@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { EventForm } from "./EventForm";
 import { LoginForm } from "./LoginForm";
 import StudentForm from "./StudentForm";
-import { CompanyForm } from "./CompanyForm";
+import CompanyForm from "./CompanyForm";
 import { SignupForm } from "./SignupForm";
 
 // const StyledForm = styled.form`

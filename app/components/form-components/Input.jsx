@@ -9,7 +9,7 @@ const StyledLabel = styled.label`
   gap: 0.5rem;
 
   ${({ type }) =>
-    type === "checkbox" &&
+    (type === "checkbox" || type === "radio") &&
     `
     padding: 0;
     display:flex;
@@ -29,7 +29,7 @@ const StyledInput = styled.input`
   border: none;
 
   ${({ type }) =>
-    type === "checkbox" &&
+    (type === "checkbox" || type === "radio") &&
     `
     height: auto;
     padding: 0;
@@ -39,6 +39,7 @@ const StyledInput = styled.input`
 export const Input = ({
   label,
   name,
+  id,
   type,
   value,
   link,
@@ -49,12 +50,12 @@ export const Input = ({
   accept
 }) => {
   return (
-    <StyledLabel htmlFor={name} type={type}>
-      {type != "checkbox" && label}
+    <StyledLabel htmlFor={id} type={type}>
+      {(type != "checkbox" && type != "radio") && label}
       <StyledInput
         type={type}
         value={value}
-        id={name}
+        id={id}
         name={name}
         placeholder={placeholder}
         onChange={onChange}
@@ -62,7 +63,7 @@ export const Input = ({
         defaultValue={defaultValue}
         accept={accept}
       ></StyledInput>
-      {type == "checkbox" && label}
+      {(type === "checkbox" || type === "radio") && label}
       {link && link}
     </StyledLabel>
   );

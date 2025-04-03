@@ -30,11 +30,14 @@ export default async function Profile() {
       ) : userType === "company" ? (
       <>
         <Hero backgroundColor="blue" title="Uppdatera" text="Företag" />
-        <Form company user={user} titles={{ one: "Företagsinformation", two: "Kontaktuppgifter" }} />
+        <Form company user={user} titles={{ one: "Företagsinformation", two: "LIA-platser" }} />
       </>
       ) : (
         <p>Du har inget konto registrerat som student eller företag.</p>
       )}
+      <form action="/auth/signout" method="post">
+        <button type="submit">Sign out</button>
+      </form>
     </>
   )
 }

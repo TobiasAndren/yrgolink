@@ -207,8 +207,7 @@ export default function StudentForm({ user, titles }) {
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {message && <div style={{ color: 'green' }}>{message}</div>}
 
-
-      <button type="submit" disabled={loading}>{loading ? 'Saving ...' : 'Save Profile'}</button>
+      <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Save Profile'}</button>
     </form>
   );
 };
