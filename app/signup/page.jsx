@@ -1,7 +1,5 @@
 // formulär för anmälan
-
-import { signup } from './actions'
-import { redirect } from 'next/navigation'
+// behöver funktionalitet samt en tabell att lagra data i db
 import { createClient } from '@/utils/supabase/server'
 
 export default async function AttendEvent() {
@@ -24,8 +22,8 @@ export default async function AttendEvent() {
                 <input id="name" name="name" type="text" placeholder="ex: Yrgo" required />
 
                 <label htmlFor="attendees">Antal personer som kommer *</label>
-                <select id="attendees" name="attendees" required>
-                    <option>Välj antal</option>
+                <select id="attendees" name="attendees" defaultValue="none" required>
+                    <option value="none" disabled>Välj antal</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>

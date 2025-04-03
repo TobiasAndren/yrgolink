@@ -1,14 +1,28 @@
 "use client";
 
+import { useState } from 'react';
 import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
-import { FormSectionTitle } from "../form-components/FormSectionTitle";
-import { login } from "@/app/login/actions";
+import { login } from "@/app/login/actions"; // Serverfunktion
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Förhindra standardformulärens skickning
+
+    // Skapa FormData för att skicka till servern
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    // Skicka data till login action
+    await login(formData);
+  };
+
   return (
-    <>
-      <FormSectionTitle>Logga in</FormSectionTitle>
+    <form onSubmit={handleSubmit}>
       <Input
         label="E-post"
         type="email"
@@ -16,6 +30,8 @@ export const LoginForm = () => {
         name="email"
         placeholder="email@example.com"
         isRequired
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <Input
         label="Lösenord"
@@ -24,13 +40,15 @@ export const LoginForm = () => {
         name="password"
         placeholder="••••••"
         isRequired
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      <Button
-        backgroundColor="red"
+      <Button 
+        backgroundColor="red" 
         textColor="white"
         text="Logga in"
-        formAction={login}
+        type="submit"
       />
-    </>
+    </form>
   );
 };
