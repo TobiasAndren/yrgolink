@@ -5,17 +5,41 @@ import { SignupForm } from "./SignupForm";
 import { EventForm } from "./EventForm";
 import { LoginForm } from "./LoginForm";
 
-const StyledForm = styled.form`
-  height: auto;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  align-self: stretch;
-`;
+// const StyledForm = styled.form`
+//   height: auto;
+//   background-color: var(--bg-grey);
+//   padding-bottom: 3rem;
+//   width: 90%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 0.75rem;
+//   align-self: center;
 
-export const Form = ({ event, student, company, titles, action, method, login }) => {
+//   @media (min-width: 600px) {
+//     width: 80%;
+//   }
+
+//   @media (min-width: 768px) {
+//     width: 70%;
+//   }
+
+//   @media (min-width: 1200px) {
+//     width: 50%;
+//     gap: 2rem;
+//   }
+// `;
+
+export const Form = ({
+  event,
+  student,
+  company,
+  titles,
+  action,
+  method,
+  login,
+  onSubmit,
+}) => {
   return (
     <>
       {event && <EventForm titles={titles} />}

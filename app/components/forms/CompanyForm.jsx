@@ -1,48 +1,50 @@
 "use client";
 
-import { TextInput } from "../form-components/TextInput";
+import { Input } from "../form-components/Input";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 
 export const CompanyForm = ({ titles }) => {
   return (
-    <>
+    <form>
       <FormSectionTitle>{titles.two}</FormSectionTitle>
-      <TextInput
+      <Input
         label="Namn*"
         type="text"
         placeholder="Ex. Acme Company"
         name="companyname"
         isRequired
-      ></TextInput>
-      <TextInput
+      ></Input>
+      <Input
         label="Hemsida*"
         type="text"
         placeholder="Ex. www.acemecompany.se"
         name="website"
         isRequired
-      ></TextInput>
-      <TextInput
+      ></Input>
+      <Input
         label="Kontaktperson namn"
         type="text"
         placeholder="Ex. Karl Andersson"
         name="contactname"
-      ></TextInput>
-      <TextInput
+      ></Input>
+      <Input
         label="Kontaktperson e-post"
         type="text"
         placeholder="Ex. karlandersson@example.com"
         name="contactemail"
-      ></TextInput>
+      ></Input>
       <FormSectionTitle>{titles.three}</FormSectionTitle>
-      <TextInput
+      <Input
         label="Beskrivning av LIA-platser"
         type="text"
         placeholder="Skriv kort om era LIA-platser"
         name="description"
-      ></TextInput>
-      <TextInput label="Möjliga Arbetsformer" type="text"></TextInput>
+      ></Input>
+      <Input label="På plats" type="checkbox"></Input>
+      <Input label="Remote" type="checkbox"></Input>
+      <Input label="Hybrid" type="checkbox"></Input>
 
-      <TextInput label="Kunskaper som sökes"></TextInput>
-    </>
+      <Input label="Kunskaper som sökes"></Input>
+    </form>
   );
 };

@@ -3,33 +3,52 @@
 import styled from "@emotion/styled";
 
 const StyledLabel = styled.label`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  ${({ type }) =>
+    type === "checkbox" &&
+    `
+    padding: 0;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+  `}
 `;
 
 const StyledInput = styled.input`
   padding: 0.75rem 1.25rem;
   height: 3rem;
   color: black;
-  background: #e6e6e6;
+  background-color: var(--white);
   border-radius: 0.75rem;
   border: none;
+
+  ${({ type }) =>
+    type === "checkbox" &&
+    `
+    height: auto;
+    padding: 0;
+  `}
 `;
 
-export const TextInput = ({
+export const Input = ({
   label,
   name,
   type,
   value,
+  link,
   placeholder,
   onChange,
   isRequired,
 }) => {
   return (
-    <StyledLabel htmlFor={name}>
-      {label}
+    <StyledLabel htmlFor={name} type={type}>
+      {type != "checkbox" && label}
       <StyledInput
         type={type}
         value={value}
@@ -38,6 +57,8 @@ export const TextInput = ({
         onChange={onChange}
         required={isRequired}
       ></StyledInput>
+      {type == "checkbox" && label}
+      {link && link}
     </StyledLabel>
   );
 };

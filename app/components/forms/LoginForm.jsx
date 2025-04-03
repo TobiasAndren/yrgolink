@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from 'react';
+import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
-import { TextInput } from "../form-components/TextInput";
 import { login } from "@/app/login/actions"; // Serverfunktion
 
 export const LoginForm = () => {
@@ -23,7 +23,7 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput
+      <Input
         label="E-post"
         type="email"
         id="email"
@@ -33,7 +33,7 @@ export const LoginForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <TextInput
+      <Input
         label="Lösenord"
         type="password"
         id="password"

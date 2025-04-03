@@ -3,10 +3,23 @@
 import { Form } from "../components/forms/Form";
 import styled from "@emotion/styled";
 import React from "react";
+import { Hero } from "../components/common/Hero";
 
 const ToggleContainer = styled.div`
   display: flex;
   width: 100%;
+
+  @media (min-width: 768px) {
+    width: 70%;
+    align-self: center;
+  }
+
+  @media (min-width: 1200px) {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    width: 50%;
+    align-self: center;
+  }
 `;
 
 const ToggleButton = styled.button`
@@ -32,8 +45,20 @@ export default function Home() {
         three: "LIA-platser",
       }
     : { one: "Kontodetaljer", two: "Personuppgifter", three: "Länkar" };
+
+  const heroProps = isCompany
+    ? {
+        backgroundColor: "blue",
+        text: "Företag",
+      }
+    : {
+        backgroundColor: "red",
+        text: "Student",
+      };
+
   return (
     <>
+      <Hero {...heroProps} title="registrera"></Hero>
       <ToggleContainer>
         <ToggleButton
           isActive={isCompany}

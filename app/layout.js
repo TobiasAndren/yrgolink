@@ -1,7 +1,7 @@
 import "./globals.css";
-import { HeaderStart } from "./components/header.jsx";
 import { Footer } from "./components/footer.jsx";
 import { TopNav } from "./components/top-nav/top-nav.jsx";
+import { Main } from "./components/Main";
 
 export const metadata = {
   title: "YrgoLink",
@@ -12,9 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <TopNav/>
-        <HeaderStart />
-        <main>{children}</main>
+        <TopNav />
+        <Main>{children}</Main>
         <Footer />
       </body>
     </html>
