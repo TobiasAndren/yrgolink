@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect, useCallback } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { useState, useEffect, useCallback } from "react";
+import { createClient } from "@/utils/supabase/client";
 import { Input } from "../form-components/Input";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 
@@ -9,47 +9,81 @@ export default function CompanyForm({ user, titles }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [technologies, setTechnologies] = useState([]);
+  const [selectedTechnologies, setSelectedTechnologies] = useState([]);
   const [profile, setProfile] = useState({
-    name: '',
-    website: '',
-    description: '',
-    contact_name: '',
-    contact_email: '',
-    employment_mode: '',
+    name: "",
+    website: "",
+    description: "",
+    contact_name: "",
+    contact_email: "",
+    employment_mode: "",
   });
 
+  /* Hämta företagets profil */
   const getProfile = useCallback(async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('companies')
-        .select('name, website, description, contact_name, contact_email, employment_mode')
-        .eq('id', user?.id)
+        .from("companies")
+        .select("name, website, description, contact_name, contact_email, employment_mode")
+        .eq("id", user?.id)
         .single();
 
       if (error) throw error;
 
       setProfile({
-        name: data?.name || '',
-        website: data?.website || '',
-        description: data?.description || '',
-        contact_name: data?.contact_name || '',
-        contact_email: data?.contact_email || '',
-        employment_mode: data?.employment_mode || '',
+        name: data?.name || "",
+        website: data?.website || "",
+        description: data?.description || "",
+        contact_name: data?.contact_name || "",
+        contact_email: data?.contact_email || "",
+        employment_mode: data?.employment_mode || "",
       });
     } catch (error) {
-      setError('Error loading user data!');
+      setError("Error loading user data!");
     } finally {
       setLoading(false);
     }
   }, [supabase, user?.id]);
 
+  /* Hämta alla teknologier */
+  useEffect(() => {
+    async function fetchTechnologies() {
+      const { data, error } = await supabase.from("technologies").select("*");
+      if (error) console.error("Error fetching technologies:", error);
+      else setTechnologies(data);
+    }
+    fetchTechnologies();
+  }, []);
+
+  /* Hämta företagets valda teknologier */
+  const getCompanyTechnologies = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from("company_technologies")
+        .select("technology_id")
+        .eq("company_id", user?.id);
+
+        console.log(data.map((item) => item.technology_id))
+
+      if (error) throw error;
+
+      setSelectedTechnologies(data.map((item) => item.technology_id));
+    } catch (error) {
+      console.error("Error fetching company technologies:", error);
+    }
+  }, [supabase, user?.id]);
+
+  /* Kör dessa funktioner vid inladdning */
   useEffect(() => {
     if (user?.id) {
       getProfile();
+      getCompanyTechnologies();
     }
-  }, [user?.id, getProfile]);
+  }, [user?.id, getProfile, getCompanyTechnologies]);
 
+  /* Uppdatera profil och teknologier */
   const updateProfile = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -59,83 +93,89 @@ export default function CompanyForm({ user, titles }) {
       setError(null);
       setMessage(null);
 
-      const { error } = await supabase.from('companies').upsert({
+      // Uppdatera företags information
+      const { error: profileError } = await supabase.from("companies").upsert({
         id: user?.id,
-        name: formData.get('name'),
-        website: formData.get('website'),
-        description: formData.get('description'),
-        contact_name: formData.get('contact_name'),
-        contact_email: formData.get('contact_email'),
+        name: formData.get("name"),
+        website: formData.get("website"),
+        description: formData.get("description"),
+        contact_name: formData.get("contact_name"),
+        contact_email: formData.get("contact_email"),
         updated_at: new Date().toISOString(),
       });
 
-      if (error) throw error;
-      setMessage('Profile updated!');
+      if (profileError) throw profileError;
+
+      // Rensa gamla teknologier
+      const { error: deleteError } = await supabase
+        .from("company_technologies")
+        .delete()
+        .eq("company_id", user?.id);
+
+      if (deleteError) throw deleteError;
+
+      // Lägg till de nya valda teknologierna
+      const newTechnologyEntries = selectedTechnologies.map((techId) => ({
+        company_id: user?.id,
+        technology_id: techId,
+      }));
+
+      const { error: insertError } = await supabase
+        .from("company_technologies")
+        .insert(newTechnologyEntries);
+
+      if (insertError) throw insertError;
+
+      setMessage("Profile updated successfully!");
     } catch (error) {
-      setError('Error updating the profile!');
+      setError("Error updating the profile!");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <form onSubmit={updateProfile}>
       <FormSectionTitle>{titles.one}</FormSectionTitle>
-      <Input
-        label="Namn*"
-        type="text"
-        placeholder="Ex. Acme Company"
-        name="name"
-        id="name"
-        defaultValue={profile.name}
-        isRequired
-      ></Input>
-      <Input
-        label="Hemsida*"
-        type="text"
-        placeholder="Ex. www.acemecompany.se"
-        name="website"
-        id="website"
-        defaultValue={profile.website}
-        isRequired
-      ></Input>
-      <Input
-        label="Kontaktperson namn"
-        type="text"
-        placeholder="Ex. Karl Andersson"
-        name="contact_name"
-        id="contact_name"
-        defaultValue={profile.contact_name}
-      ></Input>
-      <Input
-        label="Kontaktperson e-post"
-        type="text"
-        placeholder="Ex. karlandersson@example.com"
-        name="contact_email"
-        id="contact_email"
-        defaultValue={profile.contact_email}
-      ></Input>
+      <Input label="Namn*" type="text" name="name" id="name" defaultValue={profile.name} isRequired />
+      <Input label="Hemsida*" type="text" name="website" id="website" defaultValue={profile.website} isRequired />
+      <Input label="Kontaktperson namn" type="text" name="contact_name" id="contact_name" defaultValue={profile.contact_name} />
+      <Input label="Kontaktperson e-post" type="text" name="contact_email" id="contact_email" defaultValue={profile.contact_email} />
+      
       <FormSectionTitle>{titles.two}</FormSectionTitle>
-      <Input
-        label="Beskrivning av LIA-platser"
-        type="text"
-        placeholder="Skriv kort om era LIA-platser"
-        name="description"
-        id="description"
-        defaultValue={profile.description}
-      ></Input>
+      <Input label="Beskrivning av LIA-platser" type="text" name="description" id="description" defaultValue={profile.description} />
+
       <fieldset>
         <legend>Möjliga arbetsformer</legend>
-        <Input label="På plats" type="radio" name="employment_mode" id="in_house"/>
-        <Input label="Remote" type="radio" name="employment_mode" id="remote"/>
-        <Input label="Hybrid" type="radio" name="employment_mode" id="hybrid"/>
+        <Input label="På plats" type="radio" name="employment_mode" id="in_house" />
+        <Input label="Remote" type="radio" name="employment_mode" id="remote" />
+        <Input label="Hybrid" type="radio" name="employment_mode" id="hybrid" />
       </fieldset>
 
-      <Input label="Kunskaper som sökes"></Input>
+      <fieldset>
+        <legend>Kunskaper som sökes</legend>
+        {technologies.map((tech) => (
+          <label key={tech.id}>
+            <input
+              type="checkbox"
+              value={tech.id}
+              checked={selectedTechnologies.includes(tech.id) ? true : false}
+              onChange={(e) => {
+                const techId = parseInt(e.target.value);
+                setSelectedTechnologies((prev) =>
+                  e.target.checked ? [...prev, techId] : prev.filter((id) => id !== techId)
+                );
+              }}
+            />
+            {tech.name}
+          </label>
+        ))}
+      </fieldset>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {message && <div style={{ color: 'green' }}>{message}</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+      {message && <div style={{ color: "green" }}>{message}</div>}
 
-      <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Save Profile'}</button>
+      <button type="submit" disabled={loading}>{loading ? "Loading..." : "Save Profile"}</button>
     </form>
   );
 };
