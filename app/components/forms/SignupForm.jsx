@@ -1,48 +1,50 @@
 "use client";
 
-import { TextInput } from "../form-components/TextInput";
+import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 import { StudentForm } from "./StudentForm";
 import { CompanyForm } from "./CompanyForm";
+import { PolicyLink } from "../footer/PolicyLink";
 
 export const SignupForm = ({ type, titles }) => {
   return (
-    <>
+    <form>
       <FormSectionTitle>{titles.one}</FormSectionTitle>
 
-      <TextInput
+      <Input
         label="E-post*"
         type="email"
         placeholder="Ex. email@example.com"
         name="email"
         isRequired
-      ></TextInput>
-      <TextInput
+      ></Input>
+      <Input
         label="Lösenord*"
         type="password"
         placeholder="Skriv ditt lösenord"
         name="password"
         isRequired
-      ></TextInput>
+      ></Input>
 
-      {type === "student" ? (
+      {/* {type === "student" ? (
         <StudentForm titles={titles} />
       ) : (
         <CompanyForm titles={titles} />
-      )}
+      )} */}
 
-      <TextInput
-        label="Jag har läst och godkänt integritetspolicyn"
+      <Input
+        label="Jag har läst och godkänt"
+        link={<PolicyLink></PolicyLink>}
         type="checkbox"
         name="policy"
-      ></TextInput>
+      ></Input>
       <Button
         textColor="white"
         backgroundColor={type === "company" ? "blue" : "red"}
         text={type === "company" ? "Registrera företag" : "Registrera student"}
         type="submit"
       />
-    </>
+    </form>
   );
 };
