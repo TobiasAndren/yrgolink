@@ -27,17 +27,18 @@ export const SignupForm = ({ type, titles }) => {
         isRequired
       ></Input>
 
-      {/* {type === "student" ? (
-        <StudentForm titles={titles} />
+      {type === "student" ? (
+        <>STUDENT {/* lägg till dolt input-fält för user_type */}</>
       ) : (
-        <CompanyForm titles={titles} />
-      )} */}
+        <>COMPANY {/* lägg till dolt input-fält för user_type */}</>
+      )}
 
       <Input
         label="Jag har läst och godkänt"
         link={<PolicyLink></PolicyLink>}
         type="checkbox"
         name="policy"
+        isRequired
       ></Input>
       <Button
         textColor="white"

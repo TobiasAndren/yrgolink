@@ -45,6 +45,8 @@ export const Input = ({
   placeholder,
   onChange,
   isRequired,
+  defaultValue,
+  accept
 }) => {
   return (
     <StyledLabel htmlFor={name} type={type}>
@@ -53,9 +55,12 @@ export const Input = ({
         type={type}
         value={value}
         id={name}
+        name={name}
         placeholder={placeholder}
         onChange={onChange}
         required={isRequired}
+        defaultValue={defaultValue}
+        accept={accept}
       ></StyledInput>
       {type == "checkbox" && label}
       {link && link}

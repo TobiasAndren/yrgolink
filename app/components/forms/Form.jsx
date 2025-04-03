@@ -1,9 +1,11 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { SignupForm } from "./SignupForm";
 import { EventForm } from "./EventForm";
 import { LoginForm } from "./LoginForm";
+import StudentForm from "./StudentForm";
+import { CompanyForm } from "./CompanyForm";
+import { SignupForm } from "./SignupForm";
 
 // const StyledForm = styled.form`
 //   height: auto;
@@ -32,6 +34,8 @@ import { LoginForm } from "./LoginForm";
 
 export const Form = ({
   event,
+  signupStudent,
+  signupCompany,
   student,
   company,
   titles,
@@ -39,12 +43,15 @@ export const Form = ({
   method,
   login,
   onSubmit,
+  user,
 }) => {
   return (
     <>
       {event && <EventForm titles={titles} />}
-      {student && <SignupForm type="student" titles={titles} />}
-      {company && <SignupForm type="company" titles={titles} />}
+      {student && <StudentForm type="student" titles={titles} user={user} />}
+      {company && <CompanyForm type="company" titles={titles} user={user} />}
+      {signupStudent && <SignupForm type="student" titles={titles} />}
+      {signupCompany && <SignupForm type="company" titles={titles} />}
       {login && <LoginForm />}
     </>
   );
