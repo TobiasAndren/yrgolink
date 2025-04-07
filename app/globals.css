@@ -132,19 +132,24 @@ legend {
 }
 
 fieldset#dd-wu,
+fieldset#employment-mode,
 fieldset#techs {
   display: grid;
   gap: .75rem;
   width: 100%;
+  margin-bottom: .75rem;
 } 
 fieldset#dd-wu { 
   grid-template-columns: 1fr 1fr; 
-  margin-bottom: .75rem;
+}
+fieldset#employment-mode { 
+  grid-template-columns: 1fr 1fr 1fr; 
+  margin-top: .75rem;
 }
 fieldset#techs { 
-  grid-template-columns: 1fr 1fr 1fr; 
-  margin-bottom: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;  
   margin-top: .75rem;
+  margin-bottom: 2rem;
 }
 fieldset#dd-wu label {
   text-align: center;

@@ -25,7 +25,7 @@ export default async function Profile() {
     <>
     {userType === "student" ? (
       <>
-        <Hero backgroundColor="red" title="Uppdatera" text="Student" />
+        <Hero backgroundColor="red" title="Uppdatera" text="Profil" />
         <Form student user={user} titles={{ 
           one: "Personlig information", 
           two: "Länkar",
@@ -33,11 +33,11 @@ export default async function Profile() {
       </>
       ) : userType === "company" ? (
       <>
-        <Hero backgroundColor="blue" title="Uppdatera" text="Företag" />
+        <Hero backgroundColor="blue" title="Uppdatera" text="Profil" />
         <Form company user={user} titles={{ 
           one: "Företagsinformation", 
           two: "LIA-platser",
-          three: "Tekniska kunskaper"}} />
+          three: "Kunskaper som sökes"}} />
       </>
       ) : (
         <p>Du har inget konto registrerat som student eller företag.</p>

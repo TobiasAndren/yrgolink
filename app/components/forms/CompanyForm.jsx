@@ -2,6 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Input } from "../form-components/Input";
+import { Button } from "../form-components/Button";
+import { Textarea } from "../form-components/Textarea";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 
 export default function CompanyForm({ user, titles }) {
@@ -93,7 +95,6 @@ export default function CompanyForm({ user, titles }) {
       setError(null);
       setMessage(null);
 
-      // Uppdatera företags information
       const { error: profileError } = await supabase.from("companies").upsert({
         id: user?.id,
         name: formData.get("name"),
@@ -101,8 +102,9 @@ export default function CompanyForm({ user, titles }) {
         description: formData.get("description"),
         contact_name: formData.get("contact_name"),
         contact_email: formData.get("contact_email"),
+        employment_mode: profile.employment_mode,
         updated_at: new Date().toISOString(),
-      });
+      });      
 
       if (profileError) throw profileError;
 
@@ -143,39 +145,72 @@ export default function CompanyForm({ user, titles }) {
       <Input label="Kontaktperson e-post" type="text" name="contact_email" id="contact_email" defaultValue={profile.contact_email} />
       
       <FormSectionTitle>{titles.two}</FormSectionTitle>
-      <Input label="Beskrivning av LIA-platser" type="text" name="description" id="description" defaultValue={profile.description} />
+      <Textarea label="Beskrivning av LIA-platser" type="text" name="description" id="description" defaultValue={profile.description} />
 
-      <fieldset>
-        <legend>Möjliga arbetsformer</legend>
-        <Input label="På plats" type="radio" name="employment_mode" id="in_house" />
-        <Input label="Remote" type="radio" name="employment_mode" id="remote" />
-        <Input label="Hybrid" type="radio" name="employment_mode" id="hybrid" />
+      <fieldset id="employment-mode">
+        <legend>Arbetsform</legend>
+        <Input 
+          label="På plats" 
+          type="radio" 
+          name="employment_mode" 
+          id="in_house" 
+          value="in_house" 
+          checked={profile.employment_mode === "in_house"} 
+          onChange={(e) => setProfile((prev) => ({ ...prev, employment_mode: e.target.value }))} 
+        />
+        <Input 
+          label="Remote" 
+          type="radio" 
+          name="employment_mode" 
+          id="remote" 
+          value="remote" 
+          checked={profile.employment_mode === "remote"} 
+          onChange={(e) => setProfile((prev) => ({ ...prev, employment_mode: e.target.value }))} 
+        />
+        <Input 
+          label="Hybrid" 
+          type="radio" 
+          name="employment_mode" 
+          id="hybrid" 
+          value="hybrid" 
+          checked={profile.employment_mode === "hybrid"} 
+          onChange={(e) => setProfile((prev) => ({ ...prev, employment_mode: e.target.value }))} 
+        />
       </fieldset>
 
-      <fieldset>
-        <legend>Kunskaper som sökes</legend>
+
+      <FormSectionTitle>{titles.three}</FormSectionTitle>
+      <fieldset id="techs">
         {technologies.map((tech) => (
-          <label key={tech.id}>
-            <input
-              type="checkbox"
-              value={tech.id}
-              checked={selectedTechnologies.includes(tech.id) ? true : false}
-              onChange={(e) => {
-                const techId = parseInt(e.target.value);
-                setSelectedTechnologies((prev) =>
-                  e.target.checked ? [...prev, techId] : prev.filter((id) => id !== techId)
-                );
-              }}
-            />
-            {tech.name}
-          </label>
+          <Input
+            key={tech.id}
+            label={tech.name}
+            type="checkbox"
+            id={`tech-${tech.id}`}
+            value={tech.id}
+            checked={selectedTechnologies.includes(tech.id)}
+            onChange={(e) => {
+              const techId = parseInt(e.target.value, 10);
+              setSelectedTechnologies((prev) =>
+                e.target.checked
+                  ? [...prev, techId]
+                  : prev.filter((id) => id !== techId)
+              );
+            }}
+          />
         ))}
       </fieldset>
 
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {message && <div style={{ color: "green" }}>{message}</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {message && <div style={{ color: 'green' }}>{message}</div>}
 
-      <button type="submit" disabled={loading}>{loading ? "Loading..." : "Save Profile"}</button>
+      <Button
+        textColor="white"
+        backgroundColor="red"
+        text={loading ? 'Loading...' : 'Save Profile'}
+        type="submit"
+        disabled={loading}
+      />
     </form>
   );
 };
