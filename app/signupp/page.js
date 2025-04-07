@@ -76,7 +76,11 @@ export default function Home() {
         </ToggleButton>
       </ToggleContainer>
 
-      <Form signupCompany={isCompany} signupStudent={!isCompany} titles={titles}></Form>
+      <Form
+        signupCompany={isCompany}
+        signupStudent={!isCompany}
+        titles={titles}
+      ></Form>
     </>
   );
 }

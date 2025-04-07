@@ -2,17 +2,11 @@
 
 import styled from "@emotion/styled";
 
-const StyledLabel = styled.label`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
 const StyledButton = styled.button(
-  ({ textColor, backgroundColor }) => `
+  ({ textColor, backgroundColor, width }) => `
   color: var(--${textColor});
   background-color: var(--bg-${backgroundColor});
+  width: 100%;
   padding: 1rem 1.25rem;
   display: flex;
   justify-content: center;
@@ -20,28 +14,36 @@ const StyledButton = styled.button(
   border-radius: 3.5rem;
   border: none;
   gap: 0.5rem;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &:active {
+    background-color: var(--bg-blue);
+    transform: translateY(0.1rem);
+  }
 `
 );
 
 export const Button = ({
   textColor,
   backgroundColor,
-  label,
+  width,
   text,
   type,
   formAction,
 }) => {
   return (
-    <StyledLabel>
-      {label}
-      <StyledButton
-        formAction={formAction}
-        textColor={textColor}
-        backgroundColor={backgroundColor}
-        type={type}
-      >
-        {text}
-      </StyledButton>
-    </StyledLabel>
+    <StyledButton
+      formAction={formAction}
+      textColor={textColor}
+      backgroundColor={backgroundColor}
+      width={width}
+      type={type}
+    >
+      {text}
+    </StyledButton>
   );
 };

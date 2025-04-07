@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { LinkButton } from "./LinkButton";
 
 const StyledHero = styled.section(
   ({ backgroundColor, backgroundImage }) => `
@@ -16,7 +17,7 @@ const StyledHero = styled.section(
     width: 100%;
     transition: background-color 200ms ease-in-out;
     overflow: hidden;
-    gap: 0.2rem;
+    gap: 2rem;
     
     &.slide-in {
         animation: slideIn 0.5 ease-out;
@@ -50,8 +51,11 @@ const StyledHero = styled.section(
         line-height: 1em;
     }
 
-    h3:hover {
-        font-weight: 900;
+    #LIA-link {
+      line-height: 1rem;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
   @media (min-width: 600px) {
@@ -94,6 +98,10 @@ const StyledHero = styled.section(
     h3 {
       font-size: 4.5rem;
     }
+
+    h3:hover {
+      font-weight: 900;
+    }
   }
 `
 );
@@ -104,19 +112,35 @@ export const Hero = ({
   text,
   text2,
   backgroundImage,
+  isLandingPage,
 }) => {
   return (
     <StyledHero
       backgroundColor={backgroundColor}
       className="slide-in"
       backgroundImage={backgroundImage}
+      isLandingPage={isLandingPage}
     >
-      {title && <h1>{title}</h1>}
-      {text && (
-        <h3>
-          {text} <br></br>
-          {text2}
-        </h3>
+      <article>
+        {title && <h1>{title}</h1>}
+        {text && (
+          <h3>
+            {text} <br></br>
+            {text2}
+          </h3>
+        )}
+      </article>
+      {isLandingPage && (
+        <>
+          <LinkButton
+            href="/event-signup"
+            text="Anmäl er här"
+            backgroundColor="red"
+          ></LinkButton>
+          <a href="#event-signup" id="LIA-link">
+            LIA-event 2025
+          </a>
+        </>
       )}
     </StyledHero>
   );

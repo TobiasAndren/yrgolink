@@ -7,7 +7,7 @@ const StyledMain = styled.main`
   background: var(--bg-grey);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2.5rem;
   width: 100vw;
 `;
 
