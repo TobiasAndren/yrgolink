@@ -147,12 +147,14 @@ fieldset#employment-mode {
   margin-top: .75rem;
 }
 fieldset#techs { 
-  grid-template-columns: 1fr 1fr 1fr;  
+  grid-template-columns: 1fr 1fr;  
   margin-top: .75rem;
   margin-bottom: 2rem;
 }
-fieldset#dd-wu label {
-  text-align: center;
+@media (min-width: 470px) {
+  fieldset#techs {
+    grid-template-columns: 1fr 1fr 1fr;  
+  }
 }
 fieldset input:checked + label {
   background-color: var(--bg-blue);

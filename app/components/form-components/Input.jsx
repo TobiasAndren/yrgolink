@@ -16,6 +16,7 @@ const StyledLabel = styled.label`
     background: var(--bg-white);
     font-size: 0.8rem;
     cursor: pointer;
+    text-align: center;
   `}
   ${({ type }) =>
     (type === "checkbox") &&
