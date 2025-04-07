@@ -149,8 +149,7 @@ fieldset#techs {
 fieldset#dd-wu label {
   text-align: center;
 }
-fieldset#techs input[type=checkbox]:checked + label,
-fieldset#dd-wu input[type=radio]:checked + label {
+fieldset input:checked + label {
   background-color: var(--bg-blue);
   color: white;
 }

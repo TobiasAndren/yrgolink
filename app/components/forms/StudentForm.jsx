@@ -264,21 +264,25 @@ export default function StudentForm({ user, titles }) {
       <FormSectionTitle>{titles.three}</FormSectionTitle>
       <fieldset id="techs">
         {technologies.map((tech) => (
-            <Input
-              label={tech.name}
-              type="checkbox"
-              value={tech.id}
-              key={tech.id}
-              checked={selectedTechnologies.includes(tech.id)}
-              onChange={(e) => {
-                const techId = parseInt(e.target.value);
-                setSelectedTechnologies((prev) =>
-                  e.target.checked ? [...prev, techId] : prev.filter((id) => id !== techId)
-                );
-              }}
-            />
+          <Input
+            key={tech.id}
+            label={tech.name}
+            type="checkbox"
+            id={`tech-${tech.id}`}
+            value={tech.id}
+            checked={selectedTechnologies.includes(tech.id)}
+            onChange={(e) => {
+              const techId = parseInt(e.target.value, 10);
+              setSelectedTechnologies((prev) =>
+                e.target.checked
+                  ? [...prev, techId]
+                  : prev.filter((id) => id !== techId)
+              );
+            }}
+          />
         ))}
       </fieldset>
+
 
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {message && <div style={{ color: 'green' }}>{message}</div>}

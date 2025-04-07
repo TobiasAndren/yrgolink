@@ -29,11 +29,6 @@ const StyledLabel = styled.label`
     cursor: pointer;
   `}
 
-  ${({ type }) =>
-  (type === "file") && `
-    max-width: 400px;
-  `}
-
 `;
 
 const StyledInput = styled.input`
@@ -75,29 +70,43 @@ export const Input = ({
 }) => {
   return (
     <>
-      {type !== "radio" && type !== "checkbox" && (
-        <StyledLabel htmlFor={id} type={type}>{label}</StyledLabel>
+      {(type !== "radio" && type !== "checkbox") && (
+        <StyledLabel htmlFor={id} type={type}>
+          {label}
+          <StyledInput
+            type={type}
+            value={value}
+            id={id}
+            name={name}
+            placeholder={placeholder}
+            onChange={onChange}
+            required={isRequired}
+            defaultValue={defaultValue}
+            accept={accept}
+            checked={checked}
+          />
+        </StyledLabel>
       )}
-  
-      <StyledInput
-        type={type}
-        value={value}
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        onChange={onChange}
-        required={isRequired}
-        defaultValue={defaultValue}
-        accept={accept}
-        checked={checked}
-      />
-  
+
       {(type === "radio" || type === "checkbox") && (
-        <StyledLabel htmlFor={id} type={type}>{label}</StyledLabel>
+        <>
+          <StyledInput
+            type={type}
+            value={value}
+            id={id}
+            name={name}
+            placeholder={placeholder}
+            onChange={onChange}
+            required={isRequired}
+            defaultValue={defaultValue}
+            checked={checked}
+          />
+          <StyledLabel htmlFor={id} type={type}>{label}</StyledLabel>
+        </>
       )}
-  
+
       {link && link}
     </>
   );
-  
 };
+
