@@ -63,38 +63,9 @@ nav#top ul {
   list-style: none;
 }
 
-header {
-  background-color: var(--bg-red);
-  padding: 2.5rem 1.25rem;
-}
-
-header h1 {
-  font-size: 2rem;
-  line-height: 2rem;
-  font-style: normal;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-header h1+p {
-  font-size: 2rem;
-  font-weight: 200;
-  line-height: 2rem;
-  text-transform: uppercase;
-}
-
-/* main {
-  background: var(--bg-white);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2.5rem 0;
-} */
-
 .form-page {
   background-color: var(--bg-grey);
 }
-
 main section {
   padding: 0 1.25rem;
 }
@@ -114,14 +85,12 @@ footer ul {
 form {
   height: auto;
   background-color: var(--bg-grey);
-  padding-bottom: 3rem;
   width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  align-items: flex-start;
   align-self: center;
-
+  padding: 0 0 2rem;
 }
 
 @media (min-width: 600px) {
@@ -139,83 +108,83 @@ form {
 @media (min-width: 1200px) {
   form {
     width: 50%;
-    gap: 2rem;
   }
 }
 
-/* 
-input, textarea, select,
-label[for=designer],
-label[for=developer] {
-  border: none;
-  padding: 0.75rem 1.25rem;
-  background: var(--bg-white);
-  border-radius: 0.75rem;
-  font: inherit;
-  color: inherit;
+button:hover {
+  cursor: pointer;
 }
-fieldset#dd-wu {
+
+form p {
+  display: flex;
+  gap: .75rem;
+  font-size: .875rem;
+}
+
+fieldset {
+  border: none;
   display: flex;
   flex-direction: row;
-  gap: 0.75rem;
+  gap: 1.5rem;
+}
+legend { 
+  margin-bottom: 0.25rem; 
+}
+
+fieldset#dd-wu,
+fieldset#techs {
+  display: grid;
+  gap: .75rem;
+  width: 100%;
+} 
+fieldset#dd-wu { 
+  grid-template-columns: 1fr 1fr; 
+  margin-bottom: .75rem;
+}
+fieldset#techs { 
+  grid-template-columns: 1fr 1fr 1fr; 
+  margin-bottom: 2rem;
+  margin-top: .75rem;
 }
 fieldset#dd-wu label {
-  width: 100%;
   text-align: center;
 }
-fieldset#dd-wu input[type=radio] {
-  display: none;
-}
+fieldset#techs input[type=checkbox]:checked + label,
 fieldset#dd-wu input[type=radio]:checked + label {
   background-color: var(--bg-blue);
   color: white;
 }
 
+textarea {
+  min-height: 10rem;
+}
+
 input::placeholder {
   color: #737373;
 }
-fieldset {
-  border: none;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
+
+/* CV input */
+
+input[type=file] {
+  color: #737373;
+  font-style: italic;
 }
-legend {
-  font-size: 1.25rem;
+input[type=file]::-webkit-file-upload-button {
+  display: none;
 }
-fieldset > fieldset {
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-fieldset > fieldset legend {
-  font-size: 1rem;
-}
-label {
-  margin-top: 0.75rem;
-  margin-bottom: 0.25rem;
-}
-label[for="cv"] {
-  color: white;
+input[type=file]::before {
+  font-style: normal;
+  display: inline-block;
+  cursor: pointer;
+  content: "Ladda upp CV (.pdf)";
+  color: var(--white);
   padding: 0.75rem 1.25rem;
   background-color: var(--bg-red);
-  border-radius: 0.75rem;
+  border-radius: 3.5rem;
   text-align: center;
   cursor: pointer;
+  margin-right: 1.25rem;
 }
-button {
-  font: inherit;
-  border: none;
-  padding: .75rem 1.25rem;
-  border-radius: 2.5rem;
-  margin-top: 1.25rem;
-  width: 100%;
+input[type=file]:active::before {
+  background: var(--bg-blue);
 }
-button:active {
-  background-color: black;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */

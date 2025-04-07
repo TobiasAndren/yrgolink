@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { Form } from '../components/forms/Form'
 import { createClient } from '@/utils/supabase/server'
 import { Hero } from '../components/common/Hero'
+import { Button } from '../components/form-components/Button'
 
 export default async function Profile() {
   const supabase = await createClient()
@@ -25,18 +26,29 @@ export default async function Profile() {
     {userType === "student" ? (
       <>
         <Hero backgroundColor="red" title="Uppdatera" text="Student" />
-        <Form student user={user} titles={{ one: "Kontodetaljer", two: "Länkar" }} />
+        <Form student user={user} titles={{ 
+          one: "Personlig information", 
+          two: "Länkar",
+          three: "Tekniska kunskaper" }} />
       </>
       ) : userType === "company" ? (
       <>
         <Hero backgroundColor="blue" title="Uppdatera" text="Företag" />
-        <Form company user={user} titles={{ one: "Företagsinformation", two: "LIA-platser" }} />
+        <Form company user={user} titles={{ 
+          one: "Företagsinformation", 
+          two: "LIA-platser",
+          three: "Tekniska kunskaper"}} />
       </>
       ) : (
         <p>Du har inget konto registrerat som student eller företag.</p>
       )}
       <form action="/auth/signout" method="post">
-        <button type="submit">Sign out</button>
+        <Button
+          textColor="white"
+          backgroundColor="blue"
+          text="Logga ut"
+          type="submit" 
+        />
       </form>
     </>
   )

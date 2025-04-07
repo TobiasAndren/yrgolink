@@ -2,6 +2,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { Input } from "../form-components/Input";
+import { Button } from '../form-components/Button';
+import { Textarea } from '../form-components/Textarea';
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 
 export default function StudentForm({ user, titles }) {
@@ -227,35 +229,46 @@ export default function StudentForm({ user, titles }) {
         />
       </fieldset>
 
-      <Input label="Om mig" type="text" placeholder="Skriv kort om dig själv" name="description" id="description" defaultValue={profile.description} />
+      <Textarea label="Om mig" type="text" placeholder="Skriv kort om dig själv" name="description" id="description" defaultValue={profile.description} />
 
       <FormSectionTitle>{titles.two}</FormSectionTitle>
-      <Input label="Portfolio/github" type="url" placeholder="Ex. www.portfolio.se" name="website" id="website" defaultValue={profile.website} />
-      <Input label="Linked in" type="url" placeholder="Ex. www.linkedin.se/example" name="linkedin" id="linkedin" defaultValue={profile.linkedin} />
-
       <Input 
-        label="Ladda upp CV (.pdf)" 
+        label="Portfolio/github" 
+        type="url" 
+        placeholder="Ex. www.portfolio.se" 
+        name="website" 
+        id="website" 
+        defaultValue={profile.website} 
+      />
+      <Input 
+        label="Linked in" 
+        type="url" 
+        placeholder="Ex. www.linkedin.se/example" 
+        name="linkedin" 
+        id="linkedin" 
+        defaultValue={profile.linkedin} 
+      />
+      <Input 
+        label="CV" 
         type="file"
         name="cv"
         id="cv"
         accept="application/pdf"
         onChange={(e) => setCvFile(e.target.files[0])}
-      ></Input>
+      />
 
       {profile.cvUrl && (
-        <div>
-          <p>Nuvarande CV: <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">Visa CV</a> / <a href="#" onClick={deleteCV}>Radera CV</a></p>
-        </div>
+          <p><a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">Visa aktuellt CV</a> | <a href="#" onClick={deleteCV}>Radera CV</a></p>
       )}
 
-      <FormSectionTitle>Program och tekniska kunskaper</FormSectionTitle>
-      <fieldset>
-        <legend>Välj dina teknologier</legend>
+      <FormSectionTitle>{titles.three}</FormSectionTitle>
+      <fieldset id="techs">
         {technologies.map((tech) => (
-          <label key={tech.id}>
-            <input
+            <Input
+              label={tech.name}
               type="checkbox"
               value={tech.id}
+              key={tech.id}
               checked={selectedTechnologies.includes(tech.id)}
               onChange={(e) => {
                 const techId = parseInt(e.target.value);
@@ -264,15 +277,19 @@ export default function StudentForm({ user, titles }) {
                 );
               }}
             />
-            {tech.name}
-          </label>
         ))}
       </fieldset>
 
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {message && <div style={{ color: 'green' }}>{message}</div>}
 
-      <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Save Profile'}</button>
+      <Button
+        textColor="white"
+        backgroundColor="red"
+        text={loading ? 'Loading...' : 'Save Profile'}
+        type="submit"
+        disabled={loading}
+      />
     </form>
   );
 };

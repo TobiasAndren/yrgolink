@@ -4,34 +4,57 @@ import styled from "@emotion/styled";
 
 const StyledLabel = styled.label`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 
   ${({ type }) =>
-    (type === "checkbox" || type === "radio") &&
+    (type === "radio") &&
     `
-    padding: 0;
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+    height: 3rem;
+    color: black;
+    background-color: var(--white);
+    border-radius: 0.75rem;
+    background: var(--bg-white);
+    font-size: 0.8rem;
+    cursor: pointer;
   `}
+  ${({ type }) =>
+    (type === "checkbox") &&
+    `
+    padding: 2rem 1.25rem;
+    color: black;
+    text-align: center;
+    border-radius: 0.75rem;
+    background: var(--bg-white);
+    font-size: 0.8rem;
+    cursor: pointer;
+  `}
+
+  ${({ type }) =>
+  (type === "file") && `
+    max-width: 400px;
+  `}
+
 `;
 
 const StyledInput = styled.input`
+  width: 100%;
   padding: 0.75rem 1.25rem;
   height: 3rem;
   color: black;
   background-color: var(--white);
-  border-radius: 0.75rem;
+  border-radius: .75rem;
   border: none;
+  margin-top: .25rem;
+  margin-bottom: .75rem;
 
-  ${({ type }) =>
-    (type === "checkbox" || type === "radio") &&
+  ${({ type }) => (type === "checkbox" || type === "radio") &&
     `
-    height: auto;
+    display: none;
+  `}
+
+  ${({ type }) => (type === "file") &&
+  ` /* styled in global.css */
+    background: none;
     padding: 0;
   `}
 `;
@@ -47,11 +70,15 @@ export const Input = ({
   onChange,
   isRequired,
   defaultValue,
-  accept
+  accept,
+  checked
 }) => {
   return (
-    <StyledLabel htmlFor={id} type={type}>
-      {(type != "checkbox" && type != "radio") && label}
+    <>
+      {type !== "radio" && type !== "checkbox" && (
+        <StyledLabel htmlFor={id} type={type}>{label}</StyledLabel>
+      )}
+  
       <StyledInput
         type={type}
         value={value}
@@ -62,9 +89,15 @@ export const Input = ({
         required={isRequired}
         defaultValue={defaultValue}
         accept={accept}
-      ></StyledInput>
-      {(type === "checkbox" || type === "radio") && label}
+        checked={checked}
+      />
+  
+      {(type === "radio" || type === "checkbox") && (
+        <StyledLabel htmlFor={id} type={type}>{label}</StyledLabel>
+      )}
+  
       {link && link}
-    </StyledLabel>
+    </>
   );
+  
 };
