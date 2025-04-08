@@ -169,6 +169,34 @@ input::placeholder {
   color: #737373;
 }
 
+input#policy {
+  background: var(--bg-grey);
+  height: auto;
+  width: auto;
+  border: 1.5rem solid var(--black); 
+  display: inline-block;
+}
+input#policy + label {
+  display: inline-block;
+  width: auto;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  margin: 0 .3rem 1.5rem .5rem;
+  font-size: .875rem;
+}
+
+form#user-signup {
+  display: block;
+}
+
+.message-success {
+  border: 1px solid green;
+  color: green;
+  padding: .5rem 1rem;
+  margin-bottom: 1rem;
+}
+
 /* CV input */
 
 input[type=file] {
