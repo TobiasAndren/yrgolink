@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import { FormSectionTitle } from '../components/form-components/FormSectionTitle';
 import Link from 'next/link';
 
 export default function RegisteredCompanies() {
@@ -33,7 +34,7 @@ export default function RegisteredCompanies() {
 
   return (
     <section>
-      <h2>Registered Companies</h2>
+      <FormSectionTitle>Registered Companies</FormSectionTitle>
       <ul className="list">
         {companies.map((company) => (
         <li key={company.id}>

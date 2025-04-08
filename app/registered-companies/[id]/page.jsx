@@ -1,9 +1,11 @@
 'use client'
+import { Hero } from '@/app/components/common/Hero';
 import { Button } from '@/app/components/form-components/Button';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
+import { FormSectionTitle } from '@/app/components/form-components/FormSectionTitle';
 
 export default function CompanyDetails() {
   const [company, setCompany] = useState(null);
@@ -51,12 +53,13 @@ export default function CompanyDetails() {
   if (error) return <p>{error}</p>;
 
   return (
-    <section>
-        <a href="/registered-companies">
-            <Image src="/ArrowLeft.svg" width="24" height="24" alt="Go back icon" />
-            Tillbaka till alla företag
-        </a>
-        <h2>Företagsinformation</h2>
+    <>
+    <a href="/registered-companies">
+        <Image src="/ArrowLeft.svg" width="24" height="24" alt="Go back icon" />
+        Tillbaka till alla företag
+    </a>
+    <section className="company-info">
+        <FormSectionTitle>Företagsinformation</FormSectionTitle>
         <div>
             <h4>{company?.name || 'Företagsnamn saknas'}</h4>
             <p>{company?.website ? company.website.replace(/^https?:\/\//, '') : 'Hemsida saknas'}</p>
@@ -81,5 +84,6 @@ export default function CompanyDetails() {
           />
         )}
     </section>
+    </>
   );
 }
