@@ -22,6 +22,16 @@ const StyledLinkButton = styled.a(
 
   @media (min-width: 1200px) {
     min-width: 50%;
+    transition: all 200ms ease-in-out;
+
+
+    &:hover {
+        transform: scale(1.03);
+    }
+
+    &:active {
+        transform: translateY(0.1rem);
+    }
   }
 `
 );
