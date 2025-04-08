@@ -13,7 +13,7 @@ const StyledHero = styled.section(
     display: flex;
     justify-content: center;
     flex-direction: column;
-    min-height: 11.25rem;
+    min-height: 11.275rem;
     width: 100%;
     transition: background-color 200ms ease-in-out;
     overflow: hidden;
@@ -34,73 +34,85 @@ const StyledHero = styled.section(
         }
     }
 
-    h1 {
-        font-size: 2rem;
-        line-height: 1em;
-        font-style: normal;
-        font-weight: 900;
-        text-transform: uppercase;
-    }
-    
-    h3 {
-        font-size: 2rem;
-        font-weight: 200;
-        line-height: 2rem;
-        text-transform: uppercase;
-        transition: all 150ms ease-in-out;
-        line-height: 1em;
+    h1, h2 {
+      font-size: 2rem;
+      line-height: 1em;
+      text-transform: uppercase;
     }
 
-    #LIA-link {
+    h1 {
+        font-weight: 900;
+    }
+    
+    h2 {
+      display: inline;
+      font-weight: 200;
+      transition: all 150ms ease-in-out;
+    }
+
+    #lia-link {
       line-height: 1rem;
       font-weight: 500;
       text-decoration: underline;
-      text-underline-offset: 3px;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
   @media (min-width: 600px) {
-    padding: 0rem 3.5rem;
-    min-height: 15rem;
+    padding: 2.5rem 4rem;
+    min-height: 20rem;
     gap: 0.5rem;
 
-    h1 {
+    h1, h2 {
       font-size: 2.5rem;
-    }
-
-    h3 {
-      font-size: 2.5rem;
+      max-width: 65%;
     }
   }
 
   @media (min-width: 768px) {
-    padding: 0rem 6.5rem;
-    min-height: 20rem;
+    padding: 3rem 7rem;
+    min-height: 25rem;
     gap: 0.5rem;
 
-    h1 {
+    h1, h2 {
       font-size: 3rem;
-    }
-
-    h3 {
-      font-size: 3rem;
+      max-width: 70%;
     }
   }
 
   @media (min-width: 1200px) {
-    padding: 0rem 9.5rem;
+    padding: 6rem 9.5rem;
     min-height: 30rem;
     gap: 0.5rem;
 
-    h1 {
+    
+    h1, h2 {
       font-size: 4.5rem;
+      max-width: 90%;
+      text-wrap: wrap;
     }
 
-    h3 {
-      font-size: 4.5rem;
-    }
-
-    h3:hover {
+    h2:hover {
       font-weight: 900;
+    }
+
+    div {
+      flex-direction: row;
+      width: 30%;
+      align-items: center;
+      padding-top: 4rem;
+    }
+
+    #lia-link {
+      order: 1;
+    }
+
+    #signup-button {
+      order: 2;
     }
   }
 `
@@ -124,23 +136,25 @@ export const Hero = ({
       <article>
         {title && <h1>{title}</h1>}
         {text && (
-          <h3>
+          <h2>
             {text} <br></br>
             {text2}
-          </h3>
+          </h2>
         )}
       </article>
       {isLandingPage && (
-        <>
+        <div>
           <LinkButton
             href="/event-signup"
             text="Anmäl er här"
             backgroundColor="red"
+            hasBorder
+            id="signup-button"
           ></LinkButton>
-          <a href="#event-signup" id="LIA-link">
+          <a href="#event-signup" id="lia-link">
             LIA-event 2025
           </a>
-        </>
+        </div>
       )}
     </StyledHero>
   );

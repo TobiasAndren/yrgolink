@@ -56,12 +56,21 @@ const StyledArticle = styled.article(
     font-weight: 400;
     line-height: 1.375rem;
   }
+
+  @media (min-width: 600px) {
+    padding: 2rem;
+    background-color: ${
+      backgroundColor ? `var(--bg-${backgroundColor})` : "var(--bg-white)"
+    };
+  }
+
+  @media (min-width: 1200px) {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+  }
 `
 );
-
-const StyledDiv = styled.div`
-  display: flex;
-`;
 
 export const Article = ({
   title,
@@ -69,8 +78,10 @@ export const Article = ({
   linkButtonText,
   link,
   backgroundColor,
+  buttonBackgroundColor,
   eventInfo,
   id,
+  buttonHasBorder,
 }) => {
   return (
     <StyledArticle backgroundColor={backgroundColor} id={id}>
@@ -95,7 +106,8 @@ export const Article = ({
       <LinkButton
         text={linkButtonText}
         href={link}
-        backgroundColor={backgroundColor}
+        backgroundColor={buttonBackgroundColor}
+        hasBorder={buttonHasBorder}
       ></LinkButton>
     </StyledArticle>
   );
