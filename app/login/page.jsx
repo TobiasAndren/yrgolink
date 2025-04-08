@@ -1,24 +1,38 @@
-import { Form } from "../components/forms/Form";
-import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+"use client";
+
+import { useState } from "react";
+import { LoginForm } from "../components/forms/LoginForm"; // Importera LoginForm
 import { Hero } from "../components/common/Hero";
+import { redirect } from "next/navigation"; // För att omdirigera efter lyckad inloggning
 
-export default async function LoginPage() {
-  const supabase = await createClient();
+export default function LoginPage() {
+  const [error, setError] = useState("");  // För att hantera felmeddelanden
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Hantera formulärets inlämning
+  const handleLogin = async (formData) => {
+    try {
+      const result = await fetch("/api/login", {
+        method: "POST",
+        body: formData,
+      });
 
-  if (user) {
-    // if user is logged in, redirect them to their profile page
-    redirect("/profile");
-  }
+      const data = await result.json();
+
+      if (data.success) {
+        redirect("/profile");
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError("Det gick inte att logga in. Kontrollera att e-post och lösenord är korrekt ifyllda.");
+    }
+  };
 
   return (
     <>
-      <Hero backgroundColor="red" title="Logga in"></Hero>
-      <Form login />
+      <Hero backgroundColor="red" title="Logga in" />
+      <LoginForm onSubmit={handleLogin} />
+      <section>{error && <div style={{ color: "red" }}>{error}</div>}</section>
     </>
   );
 }

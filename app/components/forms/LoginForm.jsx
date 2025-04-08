@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
-import { login } from "@/app/login/actions"; // Serverfunktion
+import { FormSectionTitle } from '../form-components/FormSectionTitle';
 
-export const LoginForm = () => {
+export const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');  // För att hantera felmeddelanden
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Förhindra standardformulärens skickning
@@ -17,12 +18,13 @@ export const LoginForm = () => {
     formData.append('email', email);
     formData.append('password', password);
 
-    // Skicka data till login action
-    await login(formData);
+    // Skicka data till login action (anropar onSubmit som en prop)
+    await onSubmit(formData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <FormSectionTitle>Kontodetaljer</FormSectionTitle>
       <Input
         label="E-post"
         type="email"
