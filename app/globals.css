@@ -45,6 +45,27 @@ a {
   text-decoration: none;
 }
 
+h4 {
+  margin-bottom: .5rem;
+}
+
+/* list of companies */
+
+ul.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+ul.list li {
+  text-align: center;
+  background: var(--bg-white);
+  border-radius: .5rem;
+}
+ul.list li a {
+  display: block;
+  padding: 2.5rem 0;
+}
+
 ul {
   list-style: none;
   font-size: 1.1em;
@@ -85,6 +106,12 @@ footer {
 
 footer ul {
   list-style: none;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 form, section {
