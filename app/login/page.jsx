@@ -1,30 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { LoginForm } from "../components/forms/LoginForm"; // Importera LoginForm
+import { LoginForm } from "../components/forms/LoginForm";
 import { Hero } from "../components/common/Hero";
-import { redirect } from "next/navigation"; // För att omdirigera efter lyckad inloggning
+import { login } from "./actions"; // ← direkt import
 
 export default function LoginPage() {
-  const [error, setError] = useState("");  // För att hantera felmeddelanden
+  const [error, setError] = useState("");
 
-  // Hantera formulärets inlämning
   const handleLogin = async (formData) => {
-    try {
-      const result = await fetch("/api/login", {
-        method: "POST",
-        body: formData,
-      });
+    const result = await login(formData); // Använd server action direkt
 
-      const data = await result.json();
-
-      if (data.success) {
-        redirect("/profile");
-      } else {
-        setError(data.message);
-      }
-    } catch (err) {
-      setError("Det gick inte att logga in. Kontrollera att e-post och lösenord är korrekt ifyllda.");
+    if (result.success) {
+      window.location.href = "/profile"; // redirect från client
+    } else {
+      setError(result.message);
     }
   };
 
@@ -32,7 +22,11 @@ export default function LoginPage() {
     <>
       <Hero backgroundColor="red" title="Logga in" />
       <LoginForm onSubmit={handleLogin} />
-      <section>{error && <div style={{ color: "red" }}>{error}</div>}</section>
+      {error && (
+        <section>
+          <div style={{ color: "red" }}>{error}</div>
+        </section>
+      )}
     </>
   );
 }

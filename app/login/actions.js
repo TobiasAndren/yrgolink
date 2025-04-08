@@ -13,10 +13,8 @@ export async function login(formData) {
   const { data: user, error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    // Om inloggningen misslyckas, returnera ett fel
     return { success: false, message: error.message }
   }
 
-  // Om inloggningen lyckas, returnera en framgång
   return { success: true, user }
 }

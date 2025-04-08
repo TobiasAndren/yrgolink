@@ -119,7 +119,6 @@ section {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  padding: 2.5rem 0;
 }
 
 form, section {
@@ -127,6 +126,7 @@ form, section {
   background-color: var(--bg-grey);
   width: 90%;
   align-self: center;
+  padding: 2.5rem 0;
 }
 
 @media (min-width: 600px) {

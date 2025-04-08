@@ -8,7 +8,6 @@ import { FormSectionTitle } from '../form-components/FormSectionTitle';
 export const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');  // För att hantera felmeddelanden
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Förhindra standardformulärens skickning
