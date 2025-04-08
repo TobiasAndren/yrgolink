@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/app/components/form-components/Button';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
@@ -51,6 +52,10 @@ export default function CompanyDetails() {
 
   return (
     <section>
+        <a href="/registered-companies">
+            <Image src="/ArrowLeft.svg" width="24" height="24" alt="Go back icon" />
+            Tillbaka till alla företag
+        </a>
         <h2>Företagsinformation</h2>
         <div>
             <h4>{company?.name || 'Företagsnamn saknas'}</h4>
