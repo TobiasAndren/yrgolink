@@ -28,11 +28,14 @@ const StyledMobileNav = styled.nav(
   ({ isActive }) => `
   overflow: hidden;
   display: flex;
-  max-height: ${isActive ? `30%` : `0`};
+  height: ${isActive ? `auto` : `0`};
+  transform-origin: top;
+  transform: ${isActive ? `scaleY(1)` : `scaleY(0)`};
+  opacity: ${isActive ? `1` : `0`};
   flex-direction: column;
   transition: all 300ms ease-in-out;
   gap: 1rem;
-  background-color: var(--bg-grey);
+  background-color: ${isActive ? `var(--bg-grey)` : `transparent`};
   padding: ${isActive ? `1rem 1.5rem` : `0 1.5rem`};
 
   .active {
