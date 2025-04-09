@@ -26,15 +26,14 @@ const StyledHeader = styled.header`
 
 const StyledMobileNav = styled.nav(
   ({ isActive }) => `
+  overflow: hidden;
   display: flex;
   max-height: ${isActive ? `30%` : `0`};
   flex-direction: column;
-  overflow: hidden;
-  transition: max-height 300ms ease-in-out;
+  transition: all 150ms ease-in-out;
   gap: 1rem;
   background-color: var(--bg-grey);
   padding: ${isActive ? `1rem 1.5rem` : `0 1.5rem`};
-  transition: all 150ms ease-in-out;
 
   .active {
     display: flex;
