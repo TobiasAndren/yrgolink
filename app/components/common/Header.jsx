@@ -30,7 +30,7 @@ const StyledMobileNav = styled.nav(
   display: flex;
   max-height: ${isActive ? `30%` : `0`};
   flex-direction: column;
-  transition: all 150ms ease-in-out;
+  transition: all 300ms ease-in-out;
   gap: 1rem;
   background-color: var(--bg-grey);
   padding: ${isActive ? `1rem 1.5rem` : `0 1.5rem`};
