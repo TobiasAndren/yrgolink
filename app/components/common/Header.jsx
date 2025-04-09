@@ -22,9 +22,31 @@ const StyledHeader = styled.header`
     display: flex;
     gap: 0.75rem;
   }
+
+  @media (min-width: 1200px) {
+    justify-content: space-between;
+    align-items: center;
+
+    #hamburger-menu {
+      display: none;
+    }
+  }
 `;
 
-const StyledMobileNav = styled.nav(
+const DesktopNav = styled.nav`
+  display: none;
+  @media (min-width: 1200px) {
+    display: flex;
+    gap: 5rem;
+    font-weight: 700;
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const MobileNav = styled.nav(
   ({ isActive }) => `
   overflow: hidden;
   display: flex;
@@ -66,6 +88,11 @@ export const Header = ({}) => {
         <a href="/">
           <img src="/logo-link.svg" alt="" />
         </a>
+        <DesktopNav>
+          <a href="/event-signup">Anmälan LIA-event</a>
+          <a href="/signupp">Registrera konto</a>
+          <a href="">Bläddra bland företag</a>
+        </DesktopNav>
 
         <div>
           <a href="/profile">
@@ -76,13 +103,13 @@ export const Header = ({}) => {
           </a>
         </div>
       </StyledHeader>
-      <StyledMobileNav isActive={isActive}>
+      <MobileNav isActive={isActive}>
         <a href="/event-signup">Anmälan LIA-event</a>
         <hr />
         <a href="/signupp">Registrera konto</a>
         <hr />
         <a href="">Bläddra bland företag</a>
-      </StyledMobileNav>
+      </MobileNav>
     </>
   );
 };
