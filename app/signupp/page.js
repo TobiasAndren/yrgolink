@@ -15,8 +15,6 @@ const ToggleContainer = styled.div`
   }
 
   @media (min-width: 1200px) {
-    margin-top: 4rem;
-    margin-bottom: 2rem;
     width: 50%;
     align-self: center;
   }

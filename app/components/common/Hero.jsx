@@ -151,7 +151,7 @@ export const Hero = ({
             hasBorder
             id="signup-button"
           ></LinkButton>
-          <a href="#event-signup" id="lia-link">
+          <a href="#event-info" id="lia-link">
             LIA-event 2025
           </a>
         </div>

@@ -58,7 +58,7 @@ export default function Home() {
       <StyledContainer>
         <StyledImage src="landing-page-image.svg" alt="" />
         <Article
-          id="event-signup"
+          id="event-info"
           eventInfo
           title="Mingel mellan bransch och studerande på Yrgo"
           description="Varmt välkomna på mingelevent för att hitta framtida medarbetare i ert företag eller bara jobba tillsammans under LIA. Ni kommer att träffa Webbutvecklare och Digital Designers från Yrgo som vill visa vad de har jobbat med under året, och vi hoppas att ni hittar en match."
