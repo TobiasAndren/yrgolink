@@ -28,7 +28,7 @@ const StyledMobileNav = styled.nav(
   ({ isActive }) => `
   overflow: hidden;
   display: flex;
-  height: ${isActive ? `auto` : `0`};
+  max-height: ${isActive ? `15rem` : `0`};
   transform-origin: top;
   transform: ${isActive ? `scaleY(1)` : `scaleY(0)`};
   opacity: ${isActive ? `1` : `0`};
