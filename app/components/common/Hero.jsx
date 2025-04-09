@@ -47,7 +47,6 @@ const StyledHero = styled.section(
     h2 {
       display: inline;
       font-weight: 200;
-      transition: all 150ms ease-in-out;
     }
 
     #lia-link {
@@ -94,6 +93,10 @@ const StyledHero = styled.section(
       font-size: 4.5rem;
       max-width: 90%;
       text-wrap: wrap;
+    }
+
+    h2 {
+      transition: all 150ms ease-in-out;
     }
 
     h2:hover {
