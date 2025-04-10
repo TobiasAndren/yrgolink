@@ -35,18 +35,54 @@ body {
 body {
   color: var(--black);
   background: var(--foreground);
-  /* width: 390px; */
-  /* för mobil dev */
-  margin: 0 auto;
   font: 300 1rem 'inter', sans-serif;
   line-height: 1.6rem;
-  /* tillfälligt */
 }
 
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h4 {
+  margin-bottom: .5rem;
+}
+
+/* list of companies */
+
+ul.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+ul.list li {
+  text-align: center;
+  background: var(--bg-white);
+  border-radius: .5rem;
+}
+ul.list li a {
+  display: block;
+  padding: 2.5rem 0;
+}
+
+.company-info {
+  padding: 2.5rem;
+  border-radius: 2.5rem;
+  background: var(--bg-white);
+  margin-bottom: 4rem;
+}
+
+ul {
+  list-style: none;
+  font-size: 1.1em;
+}
+ul li img {
+  position: relative;
+  top: .2rem;
+  margin-right: .62rem;
+  width: auto;
+  height: 1.4rem;
 }
 
 nav#top {
@@ -63,40 +99,8 @@ nav#top ul {
   list-style: none;
 }
 
-header {
-  background-color: var(--bg-red);
-  padding: 2.5rem 1.25rem;
-}
-
-header h1 {
-  font-size: 2rem;
-  line-height: 2rem;
-  font-style: normal;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-header h1+p {
-  font-size: 2rem;
-  font-weight: 200;
-  line-height: 2rem;
-  text-transform: uppercase;
-}
-
-/* main {
-  background: var(--bg-white);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2.5rem 0;
-} */
-
 .form-page {
   background-color: var(--bg-grey);
-}
-
-main section {
-  padding: 0 1.25rem;
 }
 
 footer {
@@ -111,111 +115,142 @@ footer ul {
   list-style: none;
 }
 
-form {
-  height: auto;
-  background-color: var(--bg-grey);
-  padding-bottom: 3rem;
-  width: 90%;
+section {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  align-self: center;
+  gap: 1.25rem;
+}
 
+form, section {
+  height: auto;
+  background-color: var(--bg-grey);
+  width: 90%;
+  align-self: center;
+  padding: 2.5rem 0;
 }
 
 @media (min-width: 600px) {
-  form {
+  form, section {
     width: 80%;
   }
 }
 
 @media (min-width: 768px) {
-  form {
+  form, section {
     width: 70%;
   }
 }
 
 @media (min-width: 1200px) {
-  form {
+  form, section {
     width: 50%;
-    gap: 2rem;
   }
 }
 
-/* 
-input, textarea, select,
-label[for=designer],
-label[for=developer] {
-  border: none;
-  padding: 0.75rem 1.25rem;
-  background: var(--bg-white);
-  border-radius: 0.75rem;
-  font: inherit;
-  color: inherit;
+button:hover {
+  cursor: pointer;
 }
-fieldset#dd-wu {
+
+form p {
+  display: flex;
+  gap: .75rem;
+  font-size: .875rem;
+}
+
+fieldset {
+  border: none;
   display: flex;
   flex-direction: row;
-  gap: 0.75rem;
+  gap: 1.5rem;
 }
-fieldset#dd-wu label {
+legend { 
+  margin-bottom: 0.25rem; 
+}
+
+fieldset#dd-wu,
+fieldset#employment-mode,
+fieldset#techs {
+  display: grid;
+  gap: .75rem;
   width: 100%;
-  text-align: center;
+  margin-bottom: .75rem;
+} 
+fieldset#dd-wu { 
+  grid-template-columns: 1fr 1fr; 
 }
-fieldset#dd-wu input[type=radio] {
-  display: none;
+fieldset#employment-mode { 
+  grid-template-columns: 1fr 1fr 1fr; 
+  margin-top: .75rem;
 }
-fieldset#dd-wu input[type=radio]:checked + label {
+fieldset#techs { 
+  grid-template-columns: 1fr 1fr;  
+  margin-top: .75rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 470px) {
+  fieldset#techs {
+    grid-template-columns: 1fr 1fr 1fr;  
+  }
+}
+fieldset input:checked + label {
   background-color: var(--bg-blue);
   color: white;
+}
+
+textarea {
+  min-height: 10rem;
 }
 
 input::placeholder {
   color: #737373;
 }
-fieldset {
-  border: none;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
+
+input#policy {
+  background: var(--bg-grey);
+  height: auto;
+  width: auto;
+  border: 1.5rem solid var(--black); 
+  display: inline-block;
 }
-legend {
-  font-size: 1.25rem;
-}
-fieldset > fieldset {
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-fieldset > fieldset legend {
-  font-size: 1rem;
-}
-label {
-  margin-top: 0.75rem;
-  margin-bottom: 0.25rem;
-}
-label[for="cv"] {
-  color: white;
-  padding: 0.75rem 1.25rem;
-  background-color: var(--bg-red);
-  border-radius: 0.75rem;
-  text-align: center;
-  cursor: pointer;
-}
-button {
-  font: inherit;
-  border: none;
-  padding: .75rem 1.25rem;
-  border-radius: 2.5rem;
-  margin-top: 1.25rem;
-  width: 100%;
-}
-button:active {
-  background-color: black;
+input#policy + label {
+  display: inline-block;
+  width: auto;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  margin: 0 .3rem 1.5rem .5rem;
+  font-size: .875rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */
+.message-success {
+  border: 1px solid green;
+  color: green;
+  padding: .5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+/* CV input */
+
+input[type=file] {
+  color: #737373;
+  font-style: italic;
+}
+input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+input[type=file]::before {
+  font-style: normal;
+  display: inline-block;
+  cursor: pointer;
+  content: "Ladda upp CV (.pdf)";
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-red);
+  border-radius: 3.5rem;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 1.25rem;
+}
+input[type=file]:active::before {
+  background: var(--bg-blue);
+}

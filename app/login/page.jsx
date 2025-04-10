@@ -1,24 +1,32 @@
-import { Form } from "../components/forms/Form";
-import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+"use client";
+
+import { useState } from "react";
+import { LoginForm } from "../components/forms/LoginForm";
 import { Hero } from "../components/common/Hero";
+import { login } from "./actions"; // ← direkt import
 
-export default async function LoginPage() {
-  const supabase = await createClient();
+export default function LoginPage() {
+  const [error, setError] = useState("");
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const handleLogin = async (formData) => {
+    const result = await login(formData); // Använd server action direkt
 
-  if (user) {
-    // if user is logged in, redirect them to their profile page
-    redirect("/profile");
-  }
+    if (result.success) {
+      window.location.href = "/profile"; // redirect från client
+    } else {
+      setError(result.message);
+    }
+  };
 
   return (
     <>
-      <Hero backgroundColor="red" title="Logga in"></Hero>
-      <Form login />
+      <Hero backgroundColor="red" title="Logga in" />
+      <LoginForm onSubmit={handleLogin} />
+      {error && (
+        <section>
+          <div style={{ color: "red" }}>{error}</div>
+        </section>
+      )}
     </>
   );
 }

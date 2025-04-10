@@ -2,13 +2,6 @@
 
 import styled from "@emotion/styled";
 
-const StyledLabel = styled.label`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
 const StyledButton = styled.button(
   ({ textColor, backgroundColor }) => `
   color: var(--${textColor});
@@ -26,22 +19,20 @@ const StyledButton = styled.button(
 export const Button = ({
   textColor,
   backgroundColor,
-  label,
   text,
   type,
   formAction,
+  onClick, 
 }) => {
   return (
-    <StyledLabel>
-      {label}
-      <StyledButton
-        formAction={formAction}
-        textColor={textColor}
-        backgroundColor={backgroundColor}
-        type={type}
-      >
-        {text}
-      </StyledButton>
-    </StyledLabel>
+    <StyledButton
+      formAction={formAction}
+      textColor={textColor}
+      backgroundColor={backgroundColor}
+      type={type}
+      onClick={onClick} 
+    >
+      {text}
+    </StyledButton>
   );
 };
