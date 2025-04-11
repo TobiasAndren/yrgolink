@@ -28,7 +28,7 @@ const StyledArticle = styled.article(
     line-height: 1.5rem;
   }
 
-  section {
+  article {
     display: flex;
     flex-direction: row;
     gap: 2.5rem;
@@ -90,7 +90,7 @@ export const Article = ({
         <strong>{title}</strong>
       </h2>
       {eventInfo && (
-        <section aria-label="event-info">
+        <article aria-label="event-info">
           <div>
             <h3>När?</h3>
             <span>23 april</span>
@@ -101,7 +101,7 @@ export const Article = ({
             <span>Visual Arena</span>
             <span>Lindholmspiren 3</span>
           </div>
-        </section>
+        </article>
       )}
       <p>{description}</p>
       <LinkButton

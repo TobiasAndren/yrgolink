@@ -13,24 +13,15 @@ export default function Home() {
       <section>
         <ul>
           <li>
-            <img 
-              src="/CalendarDots.svg" 
-              alt="calendar icon"
-            /> 
+            <img src="/CalendarDots.svg" alt="calendar icon" />
             <strong>Datum</strong>: 23 april
           </li>
           <li>
-            <img 
-              src="/Clock.svg" 
-              alt="clock icon"
-            /> 
+            <img src="/Clock.svg" alt="clock icon" />
             <strong>Tid</strong>: 13:00-15:00
           </li>
           <li>
-            <img 
-              src="/MapPin.svg" 
-              alt="map pin icon" 
-            /> 
+            <img src="/MapPin.svg" alt="map pin icon" />
             <strong>Plats</strong>: Visual Arena, Lindholmspiren 3
           </li>
         </ul>
