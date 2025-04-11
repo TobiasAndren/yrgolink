@@ -6,16 +6,31 @@ import { Button } from "../form-components/Button";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 import { PolicyLink } from "../footer/PolicyLink";
 import { useState } from "react";
+import styled from "@emotion/styled";
+
+const StyledSection = styled.section`
+  align-self: flex-start;
+  padding: 0;
+`;
+
+const StyledContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+
+  img {
+    width: 5%;
+  }
+`;
 
 export const EventForm = ({ titles }) => {
   // State hooks för att hantera formulärdata
-  const [companyName, setCompanyName] = useState('');
-  const [noAttendees, setNoAttendees] = useState('');
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [companyName, setCompanyName] = useState("");
+  const [noAttendees, setNoAttendees] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [policy, setPolicy] = useState(false); // Ny state för checkboxen
   const supabase = createClient();
 
@@ -43,22 +58,36 @@ export const EventForm = ({ titles }) => {
 
     // Hantera resultatet från Supabase
     if (error) {
-      setError('Något gick fel. Försök igen senare.');
-      console.error('Error inserting data:', error.message);
+      setError("Något gick fel. Försök igen senare.");
+      console.error("Error inserting data:", error.message);
     } else {
-      setMessage('Anmälan genomförd! Tack för din anmälan.');
+      setMessage("Anmälan genomförd! Tack för din anmälan.");
       // Töm fälten efter lyckad submit
-      setCompanyName('');
-      setNoAttendees('');
-      setContactName('');
-      setContactEmail('');
-      setContactPhone('');
+      setCompanyName("");
+      setNoAttendees("");
+      setContactName("");
+      setContactEmail("");
+      setContactPhone("");
       setPolicy(false); // Tömmer även checkboxen
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <StyledSection>
+        <StyledContainer>
+          <img src="/calendar.svg" alt="a small calendar icon" />
+          <strong>Datum:</strong> 23 april
+        </StyledContainer>
+        <StyledContainer>
+          <img src="/clock.svg" alt="a small clock icon" />
+          <strong>Tid:</strong> 13:00-15:00
+        </StyledContainer>
+        <StyledContainer>
+          <img src="/mappin.svg" alt="a small map pin icon" />
+          <strong>Plats:</strong> Visual Arena, Lindholmspiren 3<br />
+        </StyledContainer>
+      </StyledSection>
       <FormSectionTitle>{titles?.one}</FormSectionTitle>
 
       <Input
@@ -121,8 +150,8 @@ export const EventForm = ({ titles }) => {
         onChange={(e) => setPolicy(e.target.checked)} // Uppdaterar checkbox state
       ></Input>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {message && <div style={{ color: 'green' }}>{message}</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+      {message && <div style={{ color: "green" }}>{message}</div>}
 
       <Button
         textColor="white"

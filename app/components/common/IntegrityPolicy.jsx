@@ -31,6 +31,10 @@ const PolicyContent = styled.article`
     font-size: 1rem;
     font-weight: 700;
   }
+
+  @media (min-width: 1200px) {
+    width: 50%;
+  }
 `;
 
 const CloseButton = styled.span`
