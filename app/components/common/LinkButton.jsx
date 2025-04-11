@@ -20,19 +20,22 @@ const StyledLinkButton = styled.a(
     max-width: 35%;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 768px) {
     min-width: 50%;
-    transition: all 200ms ease-in-out;
-
-
-    &:hover {
-        transform: scale(1.03);
     }
-
-    &:active {
-        transform: translateY(0.1rem);
+    
+    @media (min-width: 1200px) {
+        transition: all 200ms ease-in-out;
+    
+    
+        &:hover {
+            transform: scale(1.03);
+        }
+    
+        &:active {
+            transform: translateY(0.1rem);
+        }
     }
-  }
 `
 );
 

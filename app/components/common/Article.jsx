@@ -33,18 +33,19 @@ const StyledArticle = styled.article(
     flex-direction: row;
     gap: 2.5rem;
     width: 100%;
+    padding: 0;
   }
 
-  div {
+  div {  
     display: flex;
     flex-direction: column;
   }
-
-  div h3 {
-    color: var(--bg-red);
-    text-transform: uppercase;
-    font-size: 1.25rem;
-    line-height: 1.375em;
+    
+    div h3 {
+      color: var(--bg-red);
+      text-transform: uppercase;
+      font-size: 1.25rem;
+      line-height: 1.375em;
   }
 
   div span {
@@ -64,7 +65,7 @@ const StyledArticle = styled.article(
     };
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 768px) {
     width: 50%;
     display: flex;
     justify-content: space-between;

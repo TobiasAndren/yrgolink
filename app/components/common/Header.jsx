@@ -23,7 +23,7 @@ const StyledHeader = styled.header`
     gap: 0.75rem;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 768px) {
     justify-content: space-between;
     align-items: center;
 
@@ -35,9 +35,9 @@ const StyledHeader = styled.header`
 
 const DesktopNav = styled.nav`
   display: none;
-  @media (min-width: 1200px) {
+  @media (min-width: 768px) {
     display: flex;
-    gap: 5rem;
+    gap: 2rem;
     font-weight: 700;
 
     a:hover {
@@ -59,10 +59,6 @@ const MobileNav = styled.nav(
   gap: 1rem;
   background-color: ${isActive ? `var(--bg-grey)` : `transparent`};
   padding: ${isActive ? `1rem 1.5rem` : `0 1.5rem`};
-
-  .active {
-    display: flex;
-  }
 
   a {
     height: 100%;

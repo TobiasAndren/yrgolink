@@ -16,6 +16,11 @@ const StyledImage = Styled.img`
     width: 100%;
   }
 
+  @media (min-width: 768px) {
+    width: 50%;
+    height: 30rem;
+  }
+
   @media(min-width: 1200px) {
     width: 50%;
     height: 28rem;
@@ -34,15 +39,14 @@ const StyledContainer = Styled.div`
   }
 
   @media (min-width: 768px) {
-    width: 70%;
-    align-self: center;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0;
   }
 
   @media (min-width: 1200px) {
     width: 80%;
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 0;
   }
 `;
 
