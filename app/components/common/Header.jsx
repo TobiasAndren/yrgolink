@@ -7,7 +7,6 @@ const StyledHeader = styled.header`
   overflow: hidden;
   position: relative;
   display: flex;
-  width: 100vw;
   background-color: var(--bg-white);
   justify-content: space-between;
   align-items: center;
@@ -20,7 +19,9 @@ const StyledHeader = styled.header`
 
   div {
     display: flex;
+    justify-content: end;
     gap: 0.75rem;
+    width: 5%;
   }
 
   @media (min-width: 768px) {
