@@ -87,7 +87,7 @@ export const Header = ({}) => {
         <DesktopNav>
           <a href="/event-signup">Anmälan LIA-event</a>
           <a href="/signup">Registrera konto</a>
-          <a href="">Bläddra bland företag</a>
+          <a href="/registered-companies">Bläddra bland företag</a>
         </DesktopNav>
 
         <div>
