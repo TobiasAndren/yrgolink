@@ -1,0 +1,177 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import styled from "@emotion/styled";
+
+export const SearchForm = ({ onSubmit, technologies }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedTechnologies, setSelectedTechnologies] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState([]);
+
+  const roleToTechMap = {
+    "Digital designer": ["UI/UX", "Motion design", "Product design"],
+    "Webbutvecklare": ["Frontend", "Backend", "Fullstack"],
+  };
+
+  useEffect(() => {
+    onSubmit(searchQuery, selectedTechnologies);
+  }, [searchQuery, selectedTechnologies]);
+
+  const toggleFilters = () => {
+    setShowFilters((prev) => !prev);
+  };
+
+  const toggleTechnology = (techId) => {
+    setSelectedTechnologies((prev) =>
+      prev.includes(techId)
+        ? prev.filter((id) => id !== techId)
+        : [...prev, techId]
+    );
+  };
+
+  const toggleRole = (role) => {
+    const techNames = roleToTechMap[role];
+    const techIds = technologies
+      .filter((t) => techNames.includes(t.name))
+      .map((t) => t.id);
+
+    const isSelected = selectedRoles.includes(role);
+
+    setSelectedRoles((prev) =>
+      isSelected ? prev.filter((r) => r !== role) : [...prev, role]
+    );
+
+    setSelectedTechnologies((prev) => {
+      const newSet = new Set(prev);
+      if (isSelected) {
+        // Avmarkera roller => ta bort techs
+        techIds.forEach((id) => newSet.delete(id));
+      } else {
+        // Markera roller => lägg till techs
+        techIds.forEach((id) => newSet.add(id));
+      }
+      return Array.from(newSet);
+    });
+  };
+
+  return (
+    <FormContainer onSubmit={(e) => e.preventDefault()}>
+      <SearchRow>
+        <SearchInput
+          type="text"
+          placeholder="Sök företag"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <FilterToggle type="button" onClick={toggleFilters}>
+          Filter
+        </FilterToggle>
+      </SearchRow>
+
+      {showFilters && (
+        <FilterMenu>
+          <div>
+            <strong>Roller:</strong>
+            {Object.keys(roleToTechMap).map((role) => (
+              <label key={role}>
+                <input
+                  type="checkbox"
+                  checked={selectedRoles.includes(role)}
+                  onChange={() => toggleRole(role)}
+                />
+                {role}
+              </label>
+            ))}
+          </div>
+
+          <div>
+            <strong>Teknologier:</strong>
+            {technologies.map((tech) => (
+              <label key={tech.id}>
+                <input
+                  type="checkbox"
+                  checked={selectedTechnologies.includes(tech.id)}
+                  onChange={() => toggleTechnology(tech.id)}
+                />
+                {tech.name}
+              </label>
+            ))}
+          </div>
+        </FilterMenu>
+      )}
+    </FormContainer>
+  );
+};
+
+
+
+// Styled components (oförändrade)
+
+const FormContainer = styled.form`
+  width: 100%;
+  margin: 0;
+  padding: 0;
+`;
+
+const SearchRow = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+`;
+
+const SearchInput = styled.input`
+  flex: 1;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 2.5rem;
+  background-color: var(--bg-white);
+  font: inherit;
+  background-image: url("/MagnifyingGlass.svg");
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  background-position: right 2rem center;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const FilterToggle = styled.button`
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-color: #0070f3;
+  color: white;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+const FilterMenu = styled.div`
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-white);
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  label {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    input[type="checkbox"] {
+      transform: scale(1.1);
+    }
+  }
+`;

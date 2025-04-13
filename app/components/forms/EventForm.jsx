@@ -74,7 +74,7 @@ export const EventForm = ({ titles }) => {
 
       <Input
         label="Antal personer som kommer"
-        type="text"
+        type="number"
         placeholder="Ex. 2"
         name="Attendees"
         value={noAttendees}
