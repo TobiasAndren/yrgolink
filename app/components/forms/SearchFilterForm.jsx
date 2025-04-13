@@ -64,7 +64,10 @@ export const SearchForm = ({ onSubmit, technologies }) => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <FilterToggle type="button" onClick={toggleFilters}>
+        <FilterToggle 
+          type="button" 
+          onClick={toggleFilters}
+          isActive={showFilters}>
           Filter
         </FilterToggle>
       </SearchRow>
@@ -72,7 +75,7 @@ export const SearchForm = ({ onSubmit, technologies }) => {
       {showFilters && (
         <FilterMenu>
           <div>
-            <strong>Roller:</strong>
+            <strong>Utbildning</strong>
             {Object.keys(roleToTechMap).map((role) => (
               <label key={role}>
                 <input
@@ -86,7 +89,7 @@ export const SearchForm = ({ onSubmit, technologies }) => {
           </div>
 
           <div>
-            <strong>Teknologier:</strong>
+            <strong>Kunskaper</strong>
             {technologies.map((tech) => (
               <label key={tech.id}>
                 <input
@@ -122,7 +125,7 @@ const SearchRow = styled.div`
 
 const SearchInput = styled.input`
   flex: 1;
-  padding: 1rem 2rem;
+  padding: .5rem 1.5rem;
   border: none;
   border-radius: 2.5rem;
   background-color: var(--bg-white);
@@ -132,6 +135,11 @@ const SearchInput = styled.input`
   background-repeat: no-repeat;
   background-position: right 2rem center;
 
+
+  @media screen and (min-width: 600px) {  
+    padding: 1rem 2rem;
+  }
+
   &:focus {
     outline: none;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
@@ -139,14 +147,25 @@ const SearchInput = styled.input`
 `;
 
 const FilterToggle = styled.button`
-  padding: 0.75rem 1.25rem;
+  padding: .5rem 1.5rem;
+  font: inherit;
+  font-size: 0px;
   border: none;
   border-radius: 2rem;
-  font-size: 0.9rem;
   cursor: pointer;
-  background-color: #0070f3;
-  color: white;
   transition: all 0.3s ease;
+  color: ${({ isActive }) => isActive ? "var(--white)" : "var(--Typocolor)"};
+  background-color: ${({ isActive }) => isActive ? "var(--bg-blue)" : "var(--bg-white)"};
+  background-image: ${({ isActive }) => isActive ? `url("/SlidersHorizontalWhite.svg")` : `url("/SlidersHorizontal.svg")`};
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  @media screen and (min-width: 600px) {  
+    padding: 1rem 4.5rem 1rem 2rem;
+    background-position: right 2rem center;
+    font-size: 1rem;
+  }
 
   &:hover {
     opacity: 0.9;
@@ -155,23 +174,38 @@ const FilterToggle = styled.button`
 
 const FilterMenu = styled.div`
   margin-top: 1rem;
-  padding: 1rem;
-  background-color: var(--bg-white);
-  border: 1px solid #ddd;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  padding: .75rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.25rem;
+
+  div:last-of-type {
+    @media screen and (min-width: 600px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: .75rem;
+    }
+    @media screen and (min-width: 1030px) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: .75rem;
+    }
+  }
+
+  strong {
+    grid-column: 1 / -1;
+    display: block;
+    margin-bottom: 1rem;
+  }
 
   label {
     font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .75rem;
 
     input[type="checkbox"] {
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 `;
