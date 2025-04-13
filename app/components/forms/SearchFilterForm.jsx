@@ -90,15 +90,17 @@ export const SearchForm = ({ onSubmit, technologies }) => {
 
           <div>
             <strong>Kunskaper</strong>
-            {technologies.map((tech) => (
-              <label key={tech.id}>
-                <input
-                  type="checkbox"
-                  checked={selectedTechnologies.includes(tech.id)}
-                  onChange={() => toggleTechnology(tech.id)}
-                />
-                {tech.name}
-              </label>
+            {[...technologies]
+              .sort((a, b) => a.id - b.id)
+              .map((tech) => (
+                <label key={tech.id}>
+                  <input
+                    type="checkbox"
+                    checked={selectedTechnologies.includes(tech.id)}
+                    onChange={() => toggleTechnology(tech.id)}
+                  />
+                  {tech.name}
+                </label>
             ))}
           </div>
         </FilterMenu>

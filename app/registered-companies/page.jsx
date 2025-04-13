@@ -42,6 +42,7 @@ export default function RegisteredCompanies() {
   const [matchedCompanies, setMatchedCompanies] = useState([]);
   const [allTechnologies, setAllTechnologies] = useState([]);
   const [companyTechnologies, setCompanyTechnologies] = useState([]);
+  const [studentTechnologies, setStudentTechnologies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -61,7 +62,41 @@ export default function RegisteredCompanies() {
         setAllTechnologies(techData || []);
         setCompanyTechnologies(compTech || []);
         setFilteredCompanies(companiesData || []);
-        setMatchedCompanies(companiesData || []); // <- Här kan du lägga till matchningslogik senare
+
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (user) {
+          const { data: student, error: studentError } = await supabase
+            .from("students")
+            .select("id")
+            .eq("id", user.id)
+            .single();
+
+          if (!studentError && student) {
+            const { data: studentTechs } = await supabase
+              .from("student_technologies")
+              .select("technology_id")
+              .eq("student_id", student.id);
+
+            const studentTechIds = studentTechs?.map((t) => t.technology_id) || [];
+            setStudentTechnologies(studentTechIds);
+
+            // 💥 Matcha företag baserat på studentens techs
+            if (studentTechIds.length > 0 && companiesData && compTech) {
+              const matched = companiesData.filter((company) => {
+                const techsForCompany = compTech
+                  .filter((ct) => ct.company_id === company.id)
+                  .map((ct) => ct.technology_id);
+
+                return techsForCompany.some((techId) =>
+                  studentTechIds.includes(techId)
+                );
+              });
+
+              setMatchedCompanies(matched);
+            }
+          }
+        }
       } catch (err) {
         console.error(err);
         setError("Något gick fel vid hämtning av data.");
@@ -78,18 +113,15 @@ export default function RegisteredCompanies() {
     const noQuery = lowerQuery.trim() === "";
     const noTechs = selectedTechIds.length === 0;
 
-    // Visa alla om inget är valt
     if (noQuery && noTechs) {
       setFilteredCompanies(companies);
       return;
     }
 
-    // Filtrera på namn
     let filtered = companies.filter((company) =>
       company.name.toLowerCase().includes(lowerQuery)
     );
 
-    // Filtrera på teknik
     if (!noTechs) {
       filtered = filtered.filter((company) => {
         const techsForCompany = companyTechnologies
