@@ -59,82 +59,78 @@ export const EventForm = ({ titles }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} id="event-form">
+    <form onSubmit={handleSubmit}>
       <FormSectionTitle>{titles?.one}</FormSectionTitle>
 
-      <div>
-        <Input
-          label="Namn på företag*"
-          type="text"
-          placeholder="Ex. Acme Company"
-          name="companyName"
-          isRequired
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
-        ></Input>
+      <Input
+        label="Namn på företag*"
+        type="text"
+        placeholder="Ex. Acme Company"
+        name="companyName"
+        isRequired
+        value={companyName}
+        onChange={(e) => setCompanyName(e.target.value)}
+      ></Input>
 
-        <Input
-          label="Antal personer som kommer"
-          type="text"
-          placeholder="Ex. 2"
-          name="Attendees"
-          value={noAttendees}
-          onChange={(e) => setNoAttendees(e.target.value)}
-        ></Input>
-      </div>
+      <Input
+        label="Antal personer som kommer"
+        type="number"
+        placeholder="Ex. 2"
+        name="Attendees"
+        value={noAttendees}
+        onChange={(e) => setNoAttendees(e.target.value)}
+      ></Input>
 
       <FormSectionTitle>{titles?.two}</FormSectionTitle>
 
-      <div>
-        <Input
-          label="För- och efternamn*"
-          type="text"
-          placeholder="Ex. Förnamn Efternamn"
-          name="contact_name"
-          isRequired
-          value={contactName}
-          onChange={(e) => setContactName(e.target.value)}
-        ></Input>
+      <Input
+        label="För- och efternamn*"
+        type="text"
+        placeholder="Ex. Förnamn Efternamn"
+        name="contact_name"
+        isRequired
+        value={contactName}
+        onChange={(e) => setContactName(e.target.value)}
+      ></Input>
 
-        <Input
-          label="E-post*"
-          type="email"
-          placeholder="Ex. email@example.com"
-          name="email"
-          isRequired
-          value={contactEmail}
-          onChange={(e) => setContactEmail(e.target.value)}
-        ></Input>
+      <Input
+        label="E-post*"
+        type="email"
+        placeholder="Ex. email@example.com"
+        name="email"
+        isRequired
+        value={contactEmail}
+        onChange={(e) => setContactEmail(e.target.value)}
+      ></Input>
 
-        <Input
-          label="Telefonnummer"
-          type="tel"
-          name="phone"
-          placeholder="Ex. 073 123 45 67"
-          value={contactPhone}
-          onChange={(e) => setContactPhone(e.target.value)}
-        ></Input>
+      <Input
+        label="Telefonnummer"
+        type="tel"
+        name="phone"
+        placeholder="Ex. 073 123 45 67"
+        value={contactPhone}
+        onChange={(e) => setContactPhone(e.target.value)}
+      ></Input>
 
-        <Input
-          label="Jag har läst och godkänt"
-          link={<PolicyLink />}
-          type="checkbox"
-          name="policy"
-          id="policy"
-          checked={policy}
-          onChange={(e) => setPolicy(e.target.checked)} // Uppdaterar checkbox state
-        ></Input>
+      <Input
+        label="Jag har läst och godkänt"
+        link={<PolicyLink />}
+        type="checkbox"
+        name="policy"
+        id="policy"
+        checked={policy}
+        onChange={(e) => setPolicy(e.target.checked)} // Uppdaterar checkbox state
+      ></Input>
 
-        {error && <div style={{ color: "red" }}>{error}</div>}
-        {message && <div style={{ color: "green" }}>{message}</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+      {message && <div style={{ color: "green" }}>{message}</div>}
 
-        <Button
-          textColor="white"
-          backgroundColor="red"
-          text="Anmäl företag"
-          type="submit"
-        ></Button>
-      </div>
+      <Button
+        textColor="white"
+        backgroundColor="red"
+        text="Anmäl företag"
+        type="submit"
+      ></Button>
     </form>
   );
 };

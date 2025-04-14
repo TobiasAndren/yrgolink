@@ -6,6 +6,7 @@ const StyledTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: 400;
   align-self: flex-start;
+  margin-top: 2.5rem;
   margin-bottom: .75rem;
 
   @media (min-width: 1200px) {
