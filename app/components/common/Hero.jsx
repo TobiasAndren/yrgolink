@@ -91,7 +91,7 @@ const StyledHero = styled.section(
     
     h1, h2 {
       font-size: 6rem;
-      max-width: 90%;
+      max-width: 70%;
       text-wrap: wrap;
     }
 
