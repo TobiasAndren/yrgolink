@@ -15,9 +15,19 @@ export const SearchForm = ({ onSubmit, technologies }) => {
   };
 
   useEffect(() => {
-    onSubmit(searchQuery, selectedTechnologies);
-  }, [searchQuery, selectedTechnologies]);
-
+    const selectedRoleTechIds = selectedRoles
+      .flatMap((role) => roleToTechMap[role])
+      .map((techName) => {
+        const match = technologies.find((t) => t.name === techName);
+        return match?.id;
+      })
+      .filter(Boolean);
+  
+    const combinedTechIds = Array.from(new Set([...selectedTechnologies, ...selectedRoleTechIds]));
+  
+    onSubmit(searchQuery, selectedTechnologies, selectedRoles);
+  }, [searchQuery, selectedTechnologies, selectedRoles]);
+  
   const toggleFilters = () => {
     setShowFilters((prev) => !prev);
   };
@@ -31,29 +41,12 @@ export const SearchForm = ({ onSubmit, technologies }) => {
   };
 
   const toggleRole = (role) => {
-    const techNames = roleToTechMap[role];
-    const techIds = technologies
-      .filter((t) => techNames.includes(t.name))
-      .map((t) => t.id);
-
     const isSelected = selectedRoles.includes(role);
-
     setSelectedRoles((prev) =>
       isSelected ? prev.filter((r) => r !== role) : [...prev, role]
     );
-
-    setSelectedTechnologies((prev) => {
-      const newSet = new Set(prev);
-      if (isSelected) {
-        // Avmarkera roller => ta bort techs
-        techIds.forEach((id) => newSet.delete(id));
-      } else {
-        // Markera roller => lägg till techs
-        techIds.forEach((id) => newSet.add(id));
-      }
-      return Array.from(newSet);
-    });
   };
+  
 
   return (
     <FormContainer onSubmit={(e) => e.preventDefault()}>

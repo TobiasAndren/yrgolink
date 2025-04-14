@@ -1,42 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { FormSectionTitle } from "../components/form-components/FormSectionTitle";
 import Link from "next/link";
 import { Hero } from "../components/common/Hero";
-import styled from "@emotion/styled";
 import { SearchForm } from "../components/forms/SearchFilterForm";
-
-const ToggleContainer = styled.div`
-  display: flex;
-  width: 100%;
-  @media (min-width: 768px) {
-    width: 70%;
-    align-self: center;
-  }
-  @media (min-width: 1200px) {
-    margin-top: 2.5rem;
-    width: 50%;
-    align-self: center;
-  }
-`;
-
-const ToggleButton = styled.button`
-  flex: 1;
-  padding: 1rem;
-  border: none;
-  cursor: pointer;
-  font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
-  background-color: ${({ variant }) =>
-    variant === "matched" ? "var(--bg-red)" : "var(--bg-blue)"};
-  color: white;
-  transition: font-weight 0.3s;
-  opacity: ${({ isActive }) => (isActive ? "1" : "0.5")};
-`;
+import styled from "@emotion/styled";
 
 export default function RegisteredCompanies() {
-  const [isMatched, setIsMatched] = useState(true);
+  const router = useRouter();
+  const [isMatched, setIsMatched] = useState(false); // Start with showing all companies
   const [companies, setCompanies] = useState([]);
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [matchedCompanies, setMatchedCompanies] = useState([]);
@@ -45,12 +20,33 @@ export default function RegisteredCompanies() {
   const [studentTechnologies, setStudentTechnologies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isStudent, setIsStudent] = useState(false); // Track if user is a student
+  const [isCompany, setIsCompany] = useState(false); // Track if user is a company
 
   const supabase = createClient();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const { data: { user } } = await supabase.auth.getUser();
+
+        // If the user is logged in, check if they are a student or a company
+        if (user) {
+          const { data: student, error: studentError } = await supabase
+            .from("students")
+            .select("id")
+            .eq("id", user.id)
+            .single();
+
+          if (student && !studentError) {
+            setIsStudent(true);
+            setIsCompany(false); // It's not a company if the user is a student
+          } else {
+            setIsStudent(false); // The user is not a student
+            setIsCompany(true); // Assume it's a company if not a student
+          }
+        }
+
         const [{ data: companiesData }, { data: techData }, { data: compTech }] =
           await Promise.all([
             supabase.from("companies").select("id, name"),
@@ -63,38 +59,28 @@ export default function RegisteredCompanies() {
         setCompanyTechnologies(compTech || []);
         setFilteredCompanies(companiesData || []);
 
-        const { data: { user } } = await supabase.auth.getUser();
+        // If the user is a student, match companies based on their technologies
+        if (isStudent) {
+          const { data: studentTechs } = await supabase
+            .from("student_technologies")
+            .select("technology_id")
+            .eq("student_id", user.id);
 
-        if (user) {
-          const { data: student, error: studentError } = await supabase
-            .from("students")
-            .select("id")
-            .eq("id", user.id)
-            .single();
+          const studentTechIds = studentTechs?.map((t) => t.technology_id) || [];
+          setStudentTechnologies(studentTechIds);
 
-          if (!studentError && student) {
-            const { data: studentTechs } = await supabase
-              .from("student_technologies")
-              .select("technology_id")
-              .eq("student_id", student.id);
+          if (studentTechIds.length > 0 && companiesData && compTech) {
+            const matched = companiesData.filter((company) => {
+              // Get the technologies for the company
+              const techsForCompany = compTech
+                .filter((ct) => ct.company_id === company.id)
+                .map((ct) => ct.technology_id);
 
-            const studentTechIds = studentTechs?.map((t) => t.technology_id) || [];
-            setStudentTechnologies(studentTechIds);
+              // Check if any technology for the company matches the student's technologies
+              return techsForCompany.some((techId) => studentTechIds.includes(techId));
+            });
 
-            // 💥 Matcha företag baserat på studentens techs
-            if (studentTechIds.length > 0 && companiesData && compTech) {
-              const matched = companiesData.filter((company) => {
-                const techsForCompany = compTech
-                  .filter((ct) => ct.company_id === company.id)
-                  .map((ct) => ct.technology_id);
-
-                return techsForCompany.some((techId) =>
-                  studentTechIds.includes(techId)
-                );
-              });
-
-              setMatchedCompanies(matched);
-            }
+            setMatchedCompanies(matched);
           }
         }
       } catch (err) {
@@ -106,33 +92,61 @@ export default function RegisteredCompanies() {
     };
 
     fetchData();
-  }, []);
+  }, [isStudent]);
 
-  const handleSearch = (query, selectedTechIds) => {
+  const handleSearch = (query, selectedTechIds, selectedClasses) => {
     const lowerQuery = query.toLowerCase();
     const noQuery = lowerQuery.trim() === "";
     const noTechs = selectedTechIds.length === 0;
-
-    if (noQuery && noTechs) {
+    const noClasses = selectedClasses.length === 0;
+  
+    const classToTechMap = {
+      "Digital designer": ["UI/UX", "Motion design", "Product design"],
+      "Webbutvecklare": ["Frontend", "Backend", "Fullstack"],
+    };
+  
+    const classTechNames = selectedClasses.flatMap((Class) => classToTechMap[Class] || []);
+  
+    const classTechIds = allTechnologies
+      .filter((tech) => classTechNames.includes(tech.name))
+      .map((tech) => tech.id);
+  
+    const combinedTechIds = [...new Set([...selectedTechIds, ...classTechIds])];
+  
+    if (noQuery && combinedTechIds.length === 0) {
       setFilteredCompanies(companies);
       return;
     }
-
-    let filtered = companies.filter((company) =>
-      company.name.toLowerCase().includes(lowerQuery)
-    );
-
-    if (!noTechs) {
+  
+    let filtered = companies;
+  
+    if (!noQuery) {
+      filtered = filtered.filter((company) =>
+        company.name.toLowerCase().includes(lowerQuery)
+      );
+    }
+  
+    if (combinedTechIds.length > 0) {
       filtered = filtered.filter((company) => {
         const techsForCompany = companyTechnologies
           .filter((ct) => ct.company_id === company.id)
           .map((ct) => ct.technology_id);
-
-        return selectedTechIds.every((id) => techsForCompany.includes(id));
+  
+        // If class is checked (or class + techs) show companies that match any of those
+        if (selectedClasses.length > 0 && selectedTechIds.length === 0) {
+          return classTechIds.some((id) => techsForCompany.includes(id));
+        }
+  
+        // If techs are checked, show companies matching all techs
+        return combinedTechIds.every((id) => techsForCompany.includes(id));
       });
     }
-
+  
     setFilteredCompanies(filtered);
+  };  
+
+  const toggleView = () => {
+    setIsMatched((prevState) => !prevState);
   };
 
   const heroProps = isMatched
@@ -146,22 +160,26 @@ export default function RegisteredCompanies() {
     <>
       <Hero {...heroProps} text="Företag" />
 
-      <ToggleContainer>
-        <ToggleButton
-          isActive={isMatched}
-          variant="matched"
-          onClick={() => setIsMatched(true)}
-        >
-          Matchade företag
-        </ToggleButton>
-        <ToggleButton
-          isActive={!isMatched}
-          variant="all"
-          onClick={() => setIsMatched(false)}
-        >
-          Alla företag
-        </ToggleButton>
-      </ToggleContainer>
+      {isStudent && ( // Show toggle only for students
+        <section>
+          <ToggleContainer>
+            <ToggleButton
+              isActive={!isMatched}
+              variant="all"
+              onClick={toggleView}
+            >
+              Alla företag
+            </ToggleButton>
+            <ToggleButton
+              isActive={isMatched}
+              variant="matched"
+              onClick={toggleView}
+            >
+              Matchade företag
+            </ToggleButton>
+          </ToggleContainer>
+        </section>
+      )}
 
       <section style={{ padding: 0 }}>
         {isMatched ? (
@@ -206,3 +224,28 @@ export default function RegisteredCompanies() {
     </>
   );
 }
+
+const ToggleContainer = styled.div`
+  display: flex;
+  width: 100%;
+  @media (min-width: 768px) {
+    align-self: center;
+  }
+  @media (min-width: 1200px) {
+    margin-top: 2.5rem;
+    align-self: center;
+  }
+`;
+
+const ToggleButton = styled.button`
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
+  background-color: ${({ variant }) =>
+    variant === "matched" ? "var(--bg-red)" : "var(--bg-blue)"};
+  color: white;
+  transition: font-weight 0.3s;
+  opacity: ${({ isActive }) => (isActive ? "1" : "0.5")};
+`;
