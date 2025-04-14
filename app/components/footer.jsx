@@ -72,6 +72,10 @@ const StyledFooter = styled.footer`
       order: 2;
     }
 
+    #logo {
+      width: auto;
+    }
+
     #info-links {
       order: 1;
     }
