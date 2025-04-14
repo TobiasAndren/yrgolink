@@ -104,6 +104,7 @@ const StyledFooter = styled.footer`
       height: 3%;
       justify-content: space-between;
       flex-direction: row;
+      align-items: center;
       padding: 0 0.6rem;
       padding-top: 3.5rem;
 
