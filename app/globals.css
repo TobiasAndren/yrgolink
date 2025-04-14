@@ -101,7 +101,7 @@ section {
   align-self: center;
 }
 
-form {
+#event-form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;

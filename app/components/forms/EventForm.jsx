@@ -59,7 +59,7 @@ export const EventForm = ({ titles }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id="event-form">
       <FormSectionTitle>{titles?.one}</FormSectionTitle>
 
       <div>
