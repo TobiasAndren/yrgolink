@@ -85,13 +85,13 @@ const StyledHero = styled.section(
 
   @media (min-width: 1200px) {
     padding: 6rem 9.5rem;
-    min-height: 30rem;
+    min-height: 90vh;
     gap: 0.5rem;
 
     
     h1, h2 {
-      font-size: 4.5rem;
-      max-width: 90%;
+      font-size: 6rem;
+      max-width: 70%;
       text-wrap: wrap;
     }
 
