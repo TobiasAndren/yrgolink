@@ -102,10 +102,6 @@ export const SearchForm = ({ onSubmit, technologies }) => {
   );
 };
 
-
-
-// Styled components (oförändrade)
-
 const FormContainer = styled.form`
   width: 100%;
   margin: 0;
@@ -129,7 +125,6 @@ const SearchInput = styled.input`
   background-size: 1.5rem;
   background-repeat: no-repeat;
   background-position: right 2rem center;
-
 
   @media screen and (min-width: 600px) {  
     padding: 1rem 2rem;
@@ -164,6 +159,7 @@ const FilterToggle = styled.button`
 
   &:hover {
     opacity: 0.9;
+    box-shadow: inset 0 0 0 1px var(--black);
   }
 `;
 
