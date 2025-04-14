@@ -113,6 +113,20 @@ const StyledFooter = styled.footer`
       padding-left: 10.8rem;
       padding-right: 10.8rem;
     }
+
+    #socials img {
+      transition: all 150ms ease-in-out;
+    }
+
+    #socials img:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    li:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 `;
 

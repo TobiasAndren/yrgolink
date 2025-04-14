@@ -13,6 +13,12 @@ const StyledLink = styled.span(
     cursor: pointer;
     font-size: ${footer ? "1rem" : "0.875rem"};
     font-weight: 400;
+
+    @media (min-width: 1200px) {
+      &:hover {
+        text-decoration: ${footer && "underline"};
+      }
+    }
 `
 );
 
