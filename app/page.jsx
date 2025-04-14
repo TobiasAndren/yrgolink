@@ -22,7 +22,6 @@ const StyledImage = Styled.img`
   }
 
   @media(min-width: 1200px) {
-    width: 50%;
     height: 28rem;
   }
 `;
