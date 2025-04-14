@@ -49,15 +49,34 @@ export default function CompanyDetails() {
     fetchCompanyDetails();
   }, [id]);  // Kör denna effekt när id förändras
 
+  const employmentModeMap = {
+    in_house: "På plats",
+    remote: "På distans",
+    hybrid: "Hybrid (på plats/på distans)",
+  };
+  
+  const arbetsform = employmentModeMap[company?.employment_mode] || "Uppgift saknas";  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <>
-    <a href="/registered-companies">
+    <section style={{ paddingBottom: "0" }}>
+      <a 
+        href="/registered-companies"
+        style={{ 
+          display: "flex",
+          alignItems: "center",
+          gap: ".5rem",
+          color: "#5E5E5E",
+          fontWeight: "500"
+        }}
+      >
         <Image src="/ArrowLeft.svg" width="24" height="24" alt="Go back icon" />
         Tillbaka till alla företag
-    </a>
+      </a>
+    </section>
     <section className="company-info">
         <FormSectionTitle>Företagsinformation</FormSectionTitle>
         <div>
@@ -73,7 +92,7 @@ export default function CompanyDetails() {
             <h4>Om företaget</h4>
             <p>{company?.description || 'Beskrivning saknas'}</p>
         </div>
-        <div><strong>Arbetsform</strong>: {company?.employment_mode || 'Uppgift saknas'}</div>
+        <div><strong>Arbetsform</strong>: {arbetsform}</div>
         
         {company?.contact_email && (
             <Button
