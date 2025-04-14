@@ -6,11 +6,18 @@ import { PolicyLink } from "./footer/PolicyLink";
 const StyledFooter = styled.footer`
   background-color: var(--bg-white);
   padding: 5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
 
   #logo-container {
     display: flex;
     gap: 2.25rem;
     flex-direction: column;
+  }
+
+  #logo {
+    width: 35%;
   }
 
   #links {
@@ -135,7 +142,7 @@ export function Footer() {
     <StyledFooter>
       <div id="links">
         <div id="logo-container">
-          <img src="/logo2.svg" alt="" />
+          <img src="/logo2.svg" alt="" id="logo" />
           <div id="socials">
             <img src="/instagram.svg" alt="Instagram" />
             <img src="/facebook.svg" alt="Facebook" />
