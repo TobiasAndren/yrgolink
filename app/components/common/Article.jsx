@@ -20,7 +20,7 @@ const StyledArticle = styled.article(
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  scroll-margin-top: 2.5rem;
+  scroll-margin-top: 6rem;
 
   h2 {
     font-size: 1.5rem;
