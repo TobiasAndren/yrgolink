@@ -110,7 +110,6 @@ export const Input = ({
       )}
 
       {link && link}
-      {link && "*"}
     </>
   );
 };
