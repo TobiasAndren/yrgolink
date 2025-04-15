@@ -46,6 +46,7 @@ const StyledInput = styled.input`
     (type === "checkbox" || type === "radio") &&
     `
     display: none;
+    padding: 0.5rem 0.5rem;
   `}
 
   ${({ type }) =>

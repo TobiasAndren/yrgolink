@@ -209,7 +209,6 @@ input#policy {
   background: var(--bg-grey);
   height: auto;
   width: auto;
-  border: 1.5rem solid var(--black);
   display: inline-block;
 }
 
