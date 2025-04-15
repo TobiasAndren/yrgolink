@@ -5,6 +5,7 @@ import { Input } from "../form-components/Input";
 import { Button } from '../form-components/Button';
 import { Textarea } from '../form-components/Textarea';
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
+import { StatusDisplay } from '../common/StatusDisplay';
 
 export default function StudentForm({ user, titles }) {
   const supabase = createClient();
@@ -43,13 +44,12 @@ export default function StudentForm({ user, titles }) {
         cvUrl: data?.cv || '',
       });
     } catch (error) {
-      setError('Error loading user data!');
+      setError('Något gick fel vid inladdning av data.');
     } finally {
       setLoading(false);
     }
   }, [supabase, user?.id]);
 
-  /* Hämta alla teknologier */
   useEffect(() => {
     async function fetchTechnologies() {
       const { data, error } = await supabase.from("technologies").select("*");
@@ -59,7 +59,6 @@ export default function StudentForm({ user, titles }) {
     fetchTechnologies();
   }, []);
 
-  /* Hämta studentens valda teknologier */
   const getStudentTechnologies = useCallback(async () => {
     try {
       const { data, error } = await supabase
@@ -75,7 +74,6 @@ export default function StudentForm({ user, titles }) {
     }
   }, [supabase, user?.id]);
 
-  /* Kör dessa funktioner vid inladdning */
   useEffect(() => {
     if (user?.id) {
       getProfile();
@@ -83,14 +81,13 @@ export default function StudentForm({ user, titles }) {
     }
   }, [user?.id, getProfile, getStudentTechnologies]);
 
-  /* Uppladdning av CV-fil */
   async function uploadFile(file) {
     if (!file) return null;
 
     const filePath = `cv-${user.id}`;
     const { data, error } = await supabase.storage
     .from('cvs')
-    .upload(filePath, file, { upsert: true }); // Detta skriver över gamla filer
+    .upload(filePath, file, { upsert: true }); // upsert overwrites old file
 
 
     if (error) {
@@ -109,17 +106,14 @@ export default function StudentForm({ user, titles }) {
     try {
       setLoading(true);
       
-      // Extrahera filnamnet från URL:en
       const filePath = profile.cvUrl.split('/').pop();
       
-      // Ta bort filen från Supabase Storage
       const { error: deleteError } = await supabase.storage.from('cvs').remove([filePath]);
   
       if (deleteError) {
         throw deleteError;
       }
   
-      // Uppdatera databasen genom att sätta cv till null
       const { error: updateError } = await supabase
         .from('students')
         .update({ cv: null })
@@ -129,7 +123,7 @@ export default function StudentForm({ user, titles }) {
         throw updateError;
       }
   
-      setProfile((prev) => ({ ...prev, cvUrl: '' })); // Uppdatera state
+      setProfile((prev) => ({ ...prev, cvUrl: '' }));
       setMessage("CV har raderats!");
     } catch (error) {
       setError("Det gick inte att radera CV.");
@@ -139,7 +133,6 @@ export default function StudentForm({ user, titles }) {
     }
   };
 
-  /* Uppdatera profil och teknologier */
   const updateProfile = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -153,14 +146,13 @@ export default function StudentForm({ user, titles }) {
       if (cvFile) {
         const uploadedFilePath = await uploadFile(cvFile);
         if (!uploadedFilePath) {
-          setError('CV upload failed. Please try again.');
+          setError('Uppladdning av CV misslyckades.');
           setLoading(false);
           return;
         }
         cvUrl = supabase.storage.from('cvs').getPublicUrl(uploadedFilePath).data.publicUrl;
       }
 
-      // Uppdatera studentens profil
       const { error: profileError } = await supabase.from('students').upsert({
         id: user?.id,
         name: formData.get('name'),
@@ -174,7 +166,6 @@ export default function StudentForm({ user, titles }) {
 
       if (profileError) throw profileError;
 
-      // Rensa gamla teknologier
       const { error: deleteError } = await supabase
         .from('student_technologies')
         .delete()
@@ -182,7 +173,6 @@ export default function StudentForm({ user, titles }) {
 
       if (deleteError) throw deleteError;
 
-      // Lägg till de nya valda teknologierna
       const newTechnologyEntries = selectedTechnologies.map((techId) => ({
         student_id: user?.id,
         technology_id: techId,
@@ -194,9 +184,9 @@ export default function StudentForm({ user, titles }) {
 
       if (insertError) throw insertError;
 
-      setMessage('Profile updated successfully!');
+      setMessage('Profil sparad!');
     } catch (error) {
-      setError('Error updating the profile!');
+      setError('Något gick fel! Profilen kunde inte sparas.');
     } finally {
       setLoading(false);
     }
@@ -283,9 +273,8 @@ export default function StudentForm({ user, titles }) {
         ))}
       </fieldset>
 
-
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {message && <div style={{ color: 'green' }}>{message}</div>}
+      {error && <StatusDisplay isError>{error}</StatusDisplay>}
+      {message && <StatusDisplay>{message}</StatusDisplay>}
 
       <Button
         textColor="white"

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { FormSectionTitle } from '@/app/components/form-components/FormSectionTitle';
+import Link from 'next/link';
 
 export default function CompanyDetails() {
   const [company, setCompany] = useState(null);
@@ -57,12 +58,12 @@ export default function CompanyDetails() {
   
   const arbetsform = employmentModeMap[company?.employment_mode] || "Uppgift saknas";  
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <section><p>Loading...</p></section>;
+  if (error) return <section><p>{error}</p></section>;
 
   return (
     <>
-    <section style={{ paddingBottom: "0" }}>
+    <section style={{ padding: "2.5rem 0 0" }}>
       <a 
         href="/registered-companies"
         style={{ 
@@ -81,7 +82,9 @@ export default function CompanyDetails() {
         <FormSectionTitle>Företagsinformation</FormSectionTitle>
         <div>
             <h4>{company?.name || 'Företagsnamn saknas'}</h4>
-            <p>{company?.website ? company.website.replace(/^https?:\/\//, '') : 'Hemsida saknas'}</p>
+            <Link href={company?.website ? company?.website : ''}>
+            {company?.website ? company.website.replace(/^https?:\/\//, '') : 'Hemsida saknas'}
+            </Link>
         </div>
         <div>
             <h4>Kontaktperson</h4>

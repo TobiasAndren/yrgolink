@@ -103,9 +103,9 @@ export const Header = ({}) => {
       <MobileNav isActive={isActive}>
         <a href="/event-signup">Anmälan LIA-event</a>
         <hr />
-        <a href="/signupp">Registrera konto</a>
+        <a href="/signup">Registrera konto</a>
         <hr />
-        <a href="">Bläddra bland företag</a>
+        <a href="/registered-companies">Bläddra bland företag</a>
       </MobileNav>
     </>
   );

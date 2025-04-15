@@ -5,11 +5,10 @@ import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 import { PolicyLink } from "../footer/PolicyLink";
+import { StatusDisplay } from "../common/StatusDisplay";
 import { useState } from "react";
-import styled from "@emotion/styled";
 
 export const EventForm = ({ titles }) => {
-  // State hooks för att hantera formulärdata
   const [companyName, setCompanyName] = useState("");
   const [noAttendees, setNoAttendees] = useState("");
   const [contactName, setContactName] = useState("");
@@ -17,21 +16,19 @@ export const EventForm = ({ titles }) => {
   const [contactPhone, setContactPhone] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [policy, setPolicy] = useState(false); // Ny state för checkboxen
+  const [policy, setPolicy] = useState(false);
   const supabase = createClient();
 
-  // Funktion för att hantera formulärsubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!policy) {
       setError("Du måste godkänna policyn för att fortsätta.");
-      return; // Stoppar submission om policyn inte är godkänd
+      return;
     }
 
-    // Skicka data till Supabase
     const { data, error } = await supabase
-      .from("attendees") // Din tabell
+      .from("attendees")
       .insert([
         {
           company_name: companyName,
@@ -42,19 +39,17 @@ export const EventForm = ({ titles }) => {
         },
       ]);
 
-    // Hantera resultatet från Supabase
     if (error) {
       setError("Något gick fel. Försök igen senare.");
       console.error("Error inserting data:", error.message);
     } else {
       setMessage("Anmälan genomförd! Tack för din anmälan.");
-      // Töm fälten efter lyckad submit
       setCompanyName("");
       setNoAttendees("");
       setContactName("");
       setContactEmail("");
       setContactPhone("");
-      setPolicy(false); // Tömmer även checkboxen
+      setPolicy(false);
     }
   };
 
@@ -119,11 +114,11 @@ export const EventForm = ({ titles }) => {
         name="policy"
         id="policy"
         checked={policy}
-        onChange={(e) => setPolicy(e.target.checked)} // Uppdaterar checkbox state
+        onChange={(e) => setPolicy(e.target.checked)}
       ></Input>
 
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {message && <div style={{ color: "green" }}>{message}</div>}
+      {error && <StatusDisplay isError>{error}</StatusDisplay>}
+      {message && <StatusDisplay>{message}</StatusDisplay>}
 
       <Button
         textColor="white"

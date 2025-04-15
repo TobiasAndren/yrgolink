@@ -5,6 +5,7 @@ import { Input } from "../form-components/Input";
 import { Button } from "../form-components/Button";
 import { Textarea } from "../form-components/Textarea";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
+import { StatusDisplay } from "../common/StatusDisplay";
 
 export default function CompanyForm({ user, titles }) {
   const supabase = createClient();
@@ -22,7 +23,6 @@ export default function CompanyForm({ user, titles }) {
     employment_mode: "",
   });
 
-  /* Hämta företagets profil */
   const getProfile = useCallback(async () => {
     try {
       setLoading(true);
@@ -49,7 +49,6 @@ export default function CompanyForm({ user, titles }) {
     }
   }, [supabase, user?.id]);
 
-  /* Hämta alla teknologier */
   useEffect(() => {
     async function fetchTechnologies() {
       const { data, error } = await supabase.from("technologies").select("*");
@@ -59,7 +58,6 @@ export default function CompanyForm({ user, titles }) {
     fetchTechnologies();
   }, []);
 
-  /* Hämta företagets valda teknologier */
   const getCompanyTechnologies = useCallback(async () => {
     try {
       const { data, error } = await supabase
@@ -77,7 +75,6 @@ export default function CompanyForm({ user, titles }) {
     }
   }, [supabase, user?.id]);
 
-  /* Kör dessa funktioner vid inladdning */
   useEffect(() => {
     if (user?.id) {
       getProfile();
@@ -85,7 +82,6 @@ export default function CompanyForm({ user, titles }) {
     }
   }, [user?.id, getProfile, getCompanyTechnologies]);
 
-  /* Uppdatera profil och teknologier */
   const updateProfile = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -108,7 +104,6 @@ export default function CompanyForm({ user, titles }) {
 
       if (profileError) throw profileError;
 
-      // Rensa gamla teknologier
       const { error: deleteError } = await supabase
         .from("company_technologies")
         .delete()
@@ -116,7 +111,6 @@ export default function CompanyForm({ user, titles }) {
 
       if (deleteError) throw deleteError;
 
-      // Lägg till de nya valda teknologierna
       const newTechnologyEntries = selectedTechnologies.map((techId) => ({
         company_id: user?.id,
         technology_id: techId,
@@ -201,8 +195,8 @@ export default function CompanyForm({ user, titles }) {
         ))}
       </fieldset>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {message && <div style={{ color: 'green' }}>{message}</div>}
+      {error && <StatusDisplay isError>{error}</StatusDisplay>}
+      {message && <StatusDisplay>{message}</StatusDisplay>}
 
       <Button
         textColor="white"
