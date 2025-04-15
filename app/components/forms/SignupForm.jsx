@@ -61,7 +61,11 @@ export const SignupForm = ({ type, titles }) => {
 
         <Input
           label="Jag har läst och godkänt"
-          link={<PolicyLink></PolicyLink>}
+          link={
+            <>
+              <PolicyLink />*
+            </>
+          }
           type="checkbox"
           name="policy"
           id="policy"
