@@ -87,7 +87,7 @@ export default function Home() {
           title="Utforska företag"
           description="Bläddra bland företag och hitta din perfekta match för LIA."
           linkButtonText="Se företag här"
-          link="/"
+          link="/registered-companies"
           backgroundColor="blue"
           buttonBackgroundColor="blue"
           buttonHasBorder
