@@ -95,7 +95,7 @@ const StyledHero = styled.section(
     }
 
     h2 {
-      transition: all 150ms ease-in-out;
+      transition: all 200ms ease-in-out;
     }
 
     h2:hover {
