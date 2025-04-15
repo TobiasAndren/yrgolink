@@ -52,8 +52,12 @@ export default function Home() {
   return (
     <>
       <Hero
-        title="Välkommen till YrgoLink"
-        text="Hitta din nästa lia eller framtida kollega"
+        title="Välkommen till YrgoLink"  
+        text={
+          <>
+            Hitta din nästa LIA –<br /> eller framtida kollega
+          </>
+        }
         backgroundColor="red"
         isLandingPage
       ></Hero>
