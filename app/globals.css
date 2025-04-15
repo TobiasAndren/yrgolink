@@ -37,6 +37,7 @@ body {
   background: var(--foreground);
   font: 300 1rem 'inter', sans-serif;
   line-height: 1.6rem;
+  scroll-behavior: smooth;
 }
 
 
