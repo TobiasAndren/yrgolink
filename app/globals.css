@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --white: #fff;
+  --black: #000;
+  --Typocolor: #121212;
+
+  --bg-red: #E51236;
+  --bg-blue: #001A52;
+  --bg-white: #fff;
+  --bg-grey: #E4E9EB;
+
+  --padding: ;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--black);
+  background: var(--foreground);
+  font: 300 1rem 'inter', sans-serif;
+  line-height: 1.6rem;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h4 {
+  margin-bottom: .5rem;
+}
+
+h2:first-child {
+  margin-top: 0;
+}
+
+/* list of companies */
+
+ul.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+ul.list li {
+  text-align: center;
+  background: var(--bg-white);
+  border-radius: .5rem;
+}
+
+ul.list li a {
+  display: block;
+  padding: 2.5rem 0;
+}
+
+.company-info {
+  padding: 2.5rem;
+  border-radius: 2.5rem;
+  background: var(--bg-white);
+  margin-bottom: 4rem;
+}
+
+ul {
+  list-style: none;
+  font-size: 1.1em;
+}
+
+ul li img {
+  position: relative;
+  top: .2rem;
+  margin-right: .62rem;
+  width: auto;
+  height: 1.4rem;
+}
+
+footer ul {
+  list-style: none;
+}
+
+form,
+section {
+  height: auto;
+  background-color: var(--bg-grey);
+  width: 90%;
+  align-self: center;
+}
+
+#event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 600px) {
+
+  form,
+  section {
+    width: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+
+  form,
+  section {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  form,
+  section {
+    width: 50%;
+  }
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+form p {
+  display: flex;
+  gap: .75rem;
+  font-size: .875rem;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+legend {
+  margin-bottom: 0.25rem;
+}
+
+fieldset#dd-wu,
+fieldset#employment-mode,
+fieldset#techs {
+  display: grid;
+  gap: .75rem;
+  width: 100%;
+  margin-bottom: .75rem;
+}
+
+fieldset#dd-wu {
+  grid-template-columns: 1fr 1fr;
+}
+
+fieldset#employment-mode {
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: .75rem;
+}
+
+fieldset#techs {
+  grid-template-columns: 1fr 1fr;
+  margin-top: .75rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 470px) {
+  fieldset#techs {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+fieldset input:checked+label {
+  background-color: var(--bg-blue);
+  color: white;
+}
+
+textarea {
+  min-height: 10rem;
+}
+
+input::placeholder {
+  color: #737373;
+}
+
+input#policy {
+  background: var(--bg-grey);
+  height: auto;
+  width: auto;
+  display: inline-block;
+}
+
+input#policy+label {
+  display: inline-block;
+  width: auto;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  margin: 0 .3rem 1.5rem .5rem;
+  font-size: .875rem;
+}
+
+.message-success {
+  border: 1px solid green;
+  color: green;
+  padding: .5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+/* CV input */
+
+input[type=file] {
+  color: #737373;
+  font-style: italic;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+
+input[type=file]::before {
+  font-style: normal;
+  display: inline-block;
+  cursor: pointer;
+  content: "Ladda upp CV (.pdf)";
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-red);
+  border-radius: 3.5rem;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 1.25rem;
+}
+
+input[type=file]:active::before {
+  background: var(--bg-blue);
+}
