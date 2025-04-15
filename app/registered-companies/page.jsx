@@ -11,7 +11,7 @@ import styled from "@emotion/styled";
 
 export default function RegisteredCompanies() {
   const router = useRouter();
-  const [isMatched, setIsMatched] = useState(false); // Start with showing all companies
+  const [isMatched, setIsMatched] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [matchedCompanies, setMatchedCompanies] = useState([]);
@@ -20,8 +20,8 @@ export default function RegisteredCompanies() {
   const [studentTechnologies, setStudentTechnologies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isStudent, setIsStudent] = useState(false); // Track if user is a student
-  const [isCompany, setIsCompany] = useState(false); // Track if user is a company
+  const [isStudent, setIsStudent] = useState(false);
+  const [isCompany, setIsCompany] = useState(false);
 
   const supabase = createClient();
 
@@ -30,7 +30,6 @@ export default function RegisteredCompanies() {
       try {
         const { data: { user } } = await supabase.auth.getUser();
 
-        // If the user is logged in, check if they are a student or a company
         if (user) {
           const { data: student, error: studentError } = await supabase
             .from("students")
@@ -40,10 +39,10 @@ export default function RegisteredCompanies() {
 
           if (student && !studentError) {
             setIsStudent(true);
-            setIsCompany(false); // It's not a company if the user is a student
+            setIsCompany(false);
           } else {
-            setIsStudent(false); // The user is not a student
-            setIsCompany(true); // Assume it's a company if not a student
+            setIsStudent(false);
+            setIsCompany(true);
           }
         }
 
@@ -59,7 +58,6 @@ export default function RegisteredCompanies() {
         setCompanyTechnologies(compTech || []);
         setFilteredCompanies(companiesData || []);
 
-        // If the user is a student, match companies based on their technologies
         if (isStudent) {
           const { data: studentTechs } = await supabase
             .from("student_technologies")
@@ -71,12 +69,10 @@ export default function RegisteredCompanies() {
 
           if (studentTechIds.length > 0 && companiesData && compTech) {
             const matched = companiesData.filter((company) => {
-              // Get the technologies for the company
               const techsForCompany = compTech
                 .filter((ct) => ct.company_id === company.id)
                 .map((ct) => ct.technology_id);
 
-              // Check if any technology for the company matches the student's technologies
               return techsForCompany.some((techId) => studentTechIds.includes(techId));
             });
 
@@ -132,12 +128,10 @@ export default function RegisteredCompanies() {
           .filter((ct) => ct.company_id === company.id)
           .map((ct) => ct.technology_id);
   
-        // If class is checked (or class + techs) show companies that match any of those
         if (selectedClasses.length > 0 && selectedTechIds.length === 0) {
           return classTechIds.some((id) => techsForCompany.includes(id));
         }
   
-        // If techs are checked, show companies matching all techs
         return combinedTechIds.every((id) => techsForCompany.includes(id));
       });
     }
@@ -160,7 +154,7 @@ export default function RegisteredCompanies() {
     <>
       <Hero {...heroProps} text="Företag" />
 
-      {isStudent && ( // Show toggle only for students
+      {isStudent && (
         <section>
           <ToggleContainer>
             <ToggleButton

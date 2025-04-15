@@ -12,7 +12,7 @@ export async function signupUser(formData) {
       data: {
         user_type: formData.get('user_type'),
       },
-      emailRedirectTo: 'http://localhost:3000/profile', // URL after email verification
+      emailRedirectTo: 'https://yrgolink.vercel.app/profile', // URL after email verification
     },
   }
 

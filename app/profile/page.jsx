@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation'
-// import ProfileForm from './profile-form'
 import { Form } from '../components/forms/Form'
 import { createClient } from '@/utils/supabase/server'
 import { Hero } from '../components/common/Hero'
@@ -12,8 +11,7 @@ export default async function Profile() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  
-  if (!user) { // Om användaren inte är inloggad, skicka den till login-sidan
+  if (!user) {
     redirect('/login')
   }
   
@@ -57,7 +55,6 @@ export default async function Profile() {
 async function checkUserType(userId, supabase) {
   if (!userId) return null;
 
-  // Kolla students-tabellen
   const { data: student } = await supabase
     .from('students')
     .select('id')
@@ -66,7 +63,6 @@ async function checkUserType(userId, supabase) {
 
   if (student) return "student";
 
-  // Kolla companies-tabellen
   const { data: company } = await supabase
     .from('companies')
     .select('id')
