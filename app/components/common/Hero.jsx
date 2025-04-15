@@ -41,11 +41,10 @@ const StyledHero = styled.section(
     }
 
     h1 {
-        font-weight: 900;
+      font-weight: 900;
     }
     
     h2 {
-      display: inline;
       font-weight: 200;
     }
 
@@ -85,14 +84,14 @@ const StyledHero = styled.section(
 
   @media (min-width: 1200px) {
     padding: 6rem 9.5rem;
+    padding-right: 0;
     min-height: 90vh;
     gap: 0.5rem;
 
     
     h1, h2 {
       font-size: 6rem;
-      max-width: 70%;
-      text-wrap: wrap;
+      max-width: 18ch;
     }
 
     h2 {
