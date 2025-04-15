@@ -10,14 +10,12 @@ export const LoginForm = ({ onSubmit }) => {
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Förhindra standardformulärens skickning
+    e.preventDefault();
 
-    // Skapa FormData för att skicka till servern
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
 
-    // Skicka data till login action (anropar onSubmit som en prop)
     await onSubmit(formData);
   };
 

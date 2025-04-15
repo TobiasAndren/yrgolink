@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 
 const StyledStatus = styled.p(
   ({ isError }) => `
-  background-color: ${isError ? `#FFBABA` : `#DFF2BF`};
-  color: ${isError ? `red` : `green`};
+  background-color: ${isError ? `#FFCCCC` : `#DFF2BF`};
+  color: ${isError ? `#800000` : `#1E5700`};
   align-self: center;
   width: 90%;
   border-radius: 0.75rem;
@@ -14,7 +14,7 @@ const StyledStatus = styled.p(
   align-items: center;
   font-weight: 400;
   gap: 1rem;
-  border: 1px solid ${isError ? `red` : `green`};
+  border: 1px solid ${isError ? `#800000` : `#1E5700`};
   height: 3rem;
   margin-bottom: 2.5rem;
 

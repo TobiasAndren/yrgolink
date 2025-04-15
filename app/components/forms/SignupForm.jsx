@@ -5,6 +5,7 @@ import { Button } from "../form-components/Button";
 import { FormSectionTitle } from "../form-components/FormSectionTitle";
 import { signupUser } from "@/app/signup/actions";
 import { PolicyLink } from "../footer/PolicyLink";
+import { StatusDisplay } from "../common/StatusDisplay";
 import { useState } from "react";
 
 export const SignupForm = ({ type, titles }) => {
@@ -88,8 +89,8 @@ export const SignupForm = ({ type, titles }) => {
           isRequired
         />
 
-        {error && <div style={{ color: 'red' }} class="message-error">{error}</div>}
-        {message && <div style={{ color: 'green' }} class="message-success">{message}</div>}
+        {error && <StatusDisplay isError>{error}</StatusDisplay>}
+        {message && <StatusDisplay>{message}</StatusDisplay>}
 
         <Button
           textColor="white"
