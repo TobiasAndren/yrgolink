@@ -1,7 +1,6 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { usePathname } from "next/navigation";
 
 const StyledMain = styled.main`
   background: var(--bg-grey);

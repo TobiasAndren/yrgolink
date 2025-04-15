@@ -1,5 +1,4 @@
 'use client'
-import { Hero } from '@/app/components/common/Hero';
 import { Button } from '@/app/components/form-components/Button';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -19,19 +18,19 @@ export default function CompanyDetails() {
   useEffect(() => {
     if (!id) {
       console.log("No ID in URL");
-      return; // Tidig return om ID inte finns
+      return;
     }
 
     const fetchCompanyDetails = async () => {
       try {
-        setLoading(true); // Sätt loading till true
+        setLoading(true);
         console.log("Fetching company details for ID:", id);
 
         const { data, error } = await supabase
           .from('companies')
           .select('*')
           .eq('id', id)
-          .single(); // Hämta en enda rad (företag)
+          .single();
 
         if (error) {
           throw error;
@@ -40,15 +39,15 @@ export default function CompanyDetails() {
         console.log("Fetched data:", data);
         setCompany(data);
       } catch (error) {
-        console.error("Error:", error);  // Logga eventuella fel
+        console.error("Error:", error);
         setError('Failed to load company details');
       } finally {
-        setLoading(false); // Sätt loading till false
+        setLoading(false);
       }
     };
 
     fetchCompanyDetails();
-  }, [id]);  // Kör denna effekt när id förändras
+  }, [id]); 
 
   const employmentModeMap = {
     in_house: "På plats",
