@@ -17,7 +17,8 @@ const StyledFooter = styled.footer`
   }
 
   #logo {
-    width: 35%;
+    align-self: flex-start;
+    max-height: 2.25rem;
   }
 
   #links {
@@ -48,7 +49,8 @@ const StyledFooter = styled.footer`
     gap: 0.75rem;
 
     img {
-      width: 25%;
+      align-self: flex-start;
+      max-height: 2rem;
     }
   }
 
