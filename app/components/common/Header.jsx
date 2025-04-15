@@ -7,6 +7,7 @@ const StyledHeader = styled.header`
   overflow: hidden;
   position: sticky;
   top: 0;
+  z-index: 1000;
   display: flex;
   background-color: var(--bg-white);
   justify-content: space-between;
