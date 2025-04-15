@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { LoginForm } from "../components/forms/LoginForm";
 import { Hero } from "../components/common/Hero";
+import { StatusDisplay } from "../components/common/StatusDisplay";
 import { login } from "./actions"; // ← direkt import
 
 export default function LoginPage() {
@@ -22,11 +23,7 @@ export default function LoginPage() {
     <>
       <Hero backgroundColor="red" title="Logga in" />
       <LoginForm onSubmit={handleLogin} />
-      {error && (
-        <section>
-          <div style={{ color: "red" }}>{error}</div>
-        </section>
-      )}
+      {error && <StatusDisplay isError>{error}</StatusDisplay>}
     </>
   );
 }

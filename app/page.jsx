@@ -78,7 +78,7 @@ export default function Home() {
         via YrgoLink"
           description="YrgoLink för samman nytänkande studenter och framtidens arbetsgivare – oavsett om du söker en LIA-plats eller vill rekrytera nya stjärnor till teamet."
           linkButtonText="Registrera dig här"
-          link="/signupp"
+          link="/signup"
         ></Article>
         <Article
           title="Utforska företag"
