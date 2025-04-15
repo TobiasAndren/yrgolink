@@ -6,7 +6,7 @@ const StyledLabel = styled.label`
   width: 100%;
 
   ${({ type }) =>
-    (type === "radio") &&
+    type === "radio" &&
     `
     padding: 0.75rem 1.25rem;
     height: 3rem;
@@ -19,7 +19,7 @@ const StyledLabel = styled.label`
     text-align: center;
   `}
   ${({ type }) =>
-    (type === "checkbox") &&
+    type === "checkbox" &&
     `
     padding: 2rem 1.25rem;
     color: black;
@@ -29,7 +29,6 @@ const StyledLabel = styled.label`
     font-size: 0.8rem;
     cursor: pointer;
   `}
-
 `;
 
 const StyledInput = styled.input`
@@ -38,18 +37,20 @@ const StyledInput = styled.input`
   height: 3rem;
   color: black;
   background-color: var(--white);
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   border: none;
-  margin-top: .25rem;
-  margin-bottom: .75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
 
-  ${({ type }) => (type === "checkbox" || type === "radio") &&
+  ${({ type }) =>
+    (type === "checkbox" || type === "radio") &&
     `
     display: none;
   `}
 
-  ${({ type }) => (type === "file") &&
-  ` /* styled in global.css */
+  ${({ type }) =>
+    type === "file" &&
+    ` /* styled in global.css */
     background: none;
     padding: 0;
   `}
@@ -67,11 +68,11 @@ export const Input = ({
   isRequired,
   defaultValue,
   accept,
-  checked
+  checked,
 }) => {
   return (
     <>
-      {(type !== "radio" && type !== "checkbox") && (
+      {type !== "radio" && type !== "checkbox" && (
         <StyledLabel htmlFor={id} type={type}>
           {label}
           <StyledInput
@@ -102,7 +103,9 @@ export const Input = ({
             defaultValue={defaultValue}
             checked={checked}
           />
-          <StyledLabel htmlFor={id} type={type}>{label}</StyledLabel>
+          <StyledLabel htmlFor={id} type={type}>
+            {label}
+          </StyledLabel>
         </>
       )}
 
@@ -110,4 +113,3 @@ export const Input = ({
     </>
   );
 };
-
