@@ -1,1 +1,0 @@
-// kod här för att kunna kontrollera om användaren är inloggad?
