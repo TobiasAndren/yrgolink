@@ -23,6 +23,7 @@ export const SignupForm = ({ type, titles }) => {
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
+    formData.append('user_type', type);
   
     const result = await signupUser(formData);
   
@@ -32,6 +33,7 @@ export const SignupForm = ({ type, titles }) => {
       setError(result.message);
     }
   };
+  
 
   return (
     <form id="user-signup" onSubmit={handleSubmit}>
@@ -56,29 +58,6 @@ export const SignupForm = ({ type, titles }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {/* hidden inputs for user_type, to trigger new user into company table in db */}
-        {type === "company" ? (
-          <>
-            <Input
-              type="hidden"
-              name="user_type"
-              id="user_type"
-              value="company"
-              isRequired
-            />
-          </>
-        ) : (
-          <>
-            <Input
-              type="hidden"
-              name="user_type"
-              id="user_type"
-              value="student"
-              isRequired
-            />
-          </>
-        )}
 
         <Input
           label="Jag har läst och godkänt"

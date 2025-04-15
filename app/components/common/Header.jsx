@@ -5,7 +5,8 @@ import { useState } from "react";
 
 const StyledHeader = styled.header`
   overflow: hidden;
-  position: relative;
+  position: sticky;
+  top: 0;
   display: flex;
   background-color: var(--bg-white);
   justify-content: space-between;
