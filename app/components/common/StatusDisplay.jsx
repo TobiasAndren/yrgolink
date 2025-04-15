@@ -15,7 +15,6 @@ const StyledStatus = styled.p(
   font-weight: 400;
   gap: 1rem;
   border: 1px solid ${isError ? `#800000` : `#1E5700`};
-  height: 3rem;
   margin-bottom: 2.5rem;
 
   img {
