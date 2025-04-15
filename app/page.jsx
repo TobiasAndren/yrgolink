@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { TestContainer } from "./components/test-container";
 import { Hero } from "./components/common/Hero";
 import { Article } from "./components/common/Article";
 import Styled from "@emotion/styled";
